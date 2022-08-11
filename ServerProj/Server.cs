@@ -73,7 +73,6 @@ namespace ServerProj
                 {
                     Socket userSocket = socketListener.Accept();
                     onlineUsers.Add(userSocket);
-
                     // zapocni novu nit 
                 }
 
@@ -103,6 +102,5 @@ namespace ServerProj
                 MessageBox.Show(ex.Message);
             }
         }
-
     }
 }

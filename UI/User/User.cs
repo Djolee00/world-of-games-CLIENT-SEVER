@@ -18,6 +18,7 @@ namespace UI.User
         BinaryFormatter formatter = new BinaryFormatter();
 
 
+
         private User() { }
         private static User instance;
 
