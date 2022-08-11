@@ -8,6 +8,5 @@ namespace Domain.Communication
 {
     public enum Operation
     {
-        LogIn
     }
 }

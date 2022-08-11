@@ -73,7 +73,15 @@ namespace ServerProj
                 {
                     Socket userSocket = socketListener.Accept();
                     onlineUsers.Add(userSocket);
+<<<<<<< HEAD
+
+                   // MessageBox.Show(userSocket.RemoteEndPoint.ToString());
+
+                    var handler = new ClientHandler(userSocket);
+                    // new Thread(handler.).Start();
+=======
                     // zapocni novu nit 
+>>>>>>> origin/master
                 }
 
 
