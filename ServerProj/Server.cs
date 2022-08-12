@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,7 +12,9 @@ namespace ServerProj
     public class Server
     {
         Socket socketListener;
-        public static List<Socket> onlineUsers = new List<Socket>();
+        public static List<Player> onlineUsers = new List<Player>();
+
+        public static int id = 1;
 
         // Singleton pattern 
         public static Server instance;
@@ -51,8 +54,8 @@ namespace ServerProj
         {
             try
             {
-                foreach (var socket in onlineUsers)
-                    socket.Close();
+                foreach (var player in onlineUsers)
+                    player.Socket.Close(); // promeniti posle u clsoe socket metodu TO DO
 
                 socketListener.Close();
 
@@ -72,16 +75,11 @@ namespace ServerProj
                 while (!isEnd)
                 {
                     Socket userSocket = socketListener.Accept();
-                    onlineUsers.Add(userSocket);
-<<<<<<< HEAD
 
                    // MessageBox.Show(userSocket.RemoteEndPoint.ToString());
 
                     var handler = new ClientHandler(userSocket);
-                    // new Thread(handler.).Start();
-=======
-                    // zapocni novu nit 
->>>>>>> origin/master
+                    new Thread(handler.ProcessRequests).Start();
                 }
 
 
@@ -110,5 +108,7 @@ namespace ServerProj
                 MessageBox.Show(ex.Message);
             }
         }
+
+
     }
 }

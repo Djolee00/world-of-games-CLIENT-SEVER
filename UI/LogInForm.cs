@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Communication;
+using Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,7 +26,11 @@ namespace UI
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            
+            var response = User.User.Instance.SendRequestGetResponse(Operation.CreateANewPlayer,textBox1.Text);
+            MessageBox.Show(response.Message);
+
+            var lobby = new LobbyForm();
+            lobby.Show();
         }
     }
 }

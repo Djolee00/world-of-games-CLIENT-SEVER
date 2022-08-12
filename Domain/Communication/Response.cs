@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Communication
 {
+    [Serializable]
     public class Response
     {
         public string Message { get; set; }
         public bool Flag { get; set; }
 
-        public object Body { get; set; }
+        public string Body { get; set; }
 
-        public Response(string message, bool flag, object body)
+        public Response(string message, bool flag, string body)
         {
             Message = message;
             Flag = flag;

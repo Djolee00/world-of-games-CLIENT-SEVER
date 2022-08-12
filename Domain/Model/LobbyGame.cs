@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Communication
+namespace Domain.Model
 {
-    [Serializable]
-    public enum Operation
+    public class LobbyGame
     {
-        CreateANewPlayer,
-        CreateNewLobbyGame
+        public string Owner { get; set; }
+
     }
 }

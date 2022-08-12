@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain.Communication
 {
+ [Serializable]
     public class Request
     {
         public Operation Operation { get; set; }
-        public object Body { get; set; }
+        public string Body { get; set; }
 
-        public Request(Operation operation, object body)
+        public Request(Operation operation, string body)
         {
             Operation = operation;
             Body = body;

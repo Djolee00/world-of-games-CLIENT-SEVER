@@ -1,4 +1,5 @@
 ﻿using Domain.Communication;
+using Domain.Model;
 using ServerProj;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,6 @@ namespace UI.User
         Socket userSocket;
         NetworkStream stream;
         BinaryFormatter formatter = new BinaryFormatter();
-
-
 
         private User() { }
         private static User instance;
@@ -38,6 +37,8 @@ namespace UI.User
                 userSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 userSocket.Connect("localhost", 9000);
                 stream = new NetworkStream(userSocket);
+
+
                 return true;
             }
             catch(Exception ex)
@@ -47,34 +48,69 @@ namespace UI.User
             }
         }
 
-        public bool DisconnectUser()
+        // TO DO
+        //public bool DisconnectUser()
+        //{
+        //    try
+        //    {
+        //        Server.onlineUsers.Remove();
+        //        userSocket.Close();
+        //        return true;
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //        return false;
+        //    }
+        //}
+
+        private Request CreateRequest(Operation operation, string obj)
         {
-            try
-            {
-                Server.onlineUsers.Remove(userSocket);
-                userSocket.Close();
-                return true;
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
+            var request = new Request(operation, obj);
+            return request;
+        }
+        public void SendRequest(Operation operation, string obj)
+        {
+            var request = CreateRequest(operation, obj);
+            formatter.Serialize(stream, request);
+            stream.Flush();
         }
 
-        public Response SendRequestGetResponse(Operation operation, object obj)
+        public Response SendRequestGetResponse(Operation operation, string obj)
         {
             try
             {
-                formatter.Serialize(stream, new Request(operation, obj));
-                return formatter.Deserialize(stream) as Response;
+                SendRequest(operation, obj);
+        
+                var response =  (Response)formatter.Deserialize(stream);
+                return response;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
+        public void StartNewThread()
+        {
+            new Thread(ListenAndAcceptForServerMessage).Start();
+        }
 
+        private void ListenAndAcceptForServerMessage()
+        {
+            bool isEnd = false;
+            while (!isEnd)
+            {
+                try
+                {
+                    var response = formatter.Deserialize(stream);
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
     }
 }

@@ -54,6 +54,7 @@ namespace ServerProj
         private void btnServer_Click(object sender, EventArgs e)
         {
             var server = new ServerForm();
+            this.Hide();
             server.ShowDialog();
         }
 
@@ -63,6 +64,7 @@ namespace ServerProj
                 return;
 
             var login = new LogInForm();
+            this.Hide();
             login.ShowDialog();
 
         }
