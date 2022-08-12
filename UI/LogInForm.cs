@@ -26,7 +26,7 @@ namespace UI
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            User.User.Instance.SendRequest(Operation.CreateANewPlayer,textBox1.Text);
+            User.User.Instance.SendRequest(OperationRequest.CreateANewPlayer,textBox1.Text);
 
             var lobby = new LobbyForm();
             lobby.Show();

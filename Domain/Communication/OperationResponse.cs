@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Communication
 {
-    [Serializable]
-    public enum Operation
+    public enum OperationResponse
     {
-        CreateANewPlayer
     }
 }

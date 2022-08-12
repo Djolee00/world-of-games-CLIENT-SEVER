@@ -65,7 +65,7 @@ namespace ServerProj
             {
                 switch (request.Operation)
                 {
-                    case Operation.CreateANewPlayer: return AddANewPlayer(request.Body); break;
+                    case OperationRequest.CreateANewPlayer: return AddANewPlayer(request.Body); break;
                 }
 
                 return new Response();

@@ -11,8 +11,18 @@ namespace Domain.Communication
     {
         public string Message { get; set; }
         public bool Flag { get; set; }
+        public OperationResponse Operation { get; set; }
 
-        public string Body { get; set; }
+        public Response()
+        {
 
+        }
+
+        public Response(string message, bool flag, OperationResponse response)
+        {
+            Message = message;
+            Flag = flag;
+            Operation = response;
+        }
     }
 }

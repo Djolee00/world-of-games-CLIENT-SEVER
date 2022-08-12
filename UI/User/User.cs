@@ -66,12 +66,12 @@ namespace UI.User
         //    }
         //}
 
-        private Request CreateRequest(Operation operation, string obj)
+        private Request CreateRequest(OperationRequest operation, string obj)
         {
             var request = new Request(operation, obj);
             return request;
         }
-        public void SendRequest(Operation operation, string obj)
+        public void SendRequest(OperationRequest operation, string obj)
         {
             var request = CreateRequest(operation, obj);
             
@@ -79,7 +79,7 @@ namespace UI.User
             
         }
 
-        public Response SendRequestGetResponse(Operation operation, string obj)
+        public Response SendRequestGetResponse(OperationRequest operation, string obj)
         {
             try
             {
