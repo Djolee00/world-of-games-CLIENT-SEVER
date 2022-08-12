@@ -9,7 +9,6 @@ namespace Domain.Communication
     [Serializable]
     public enum Operation
     {
-        CreateANewPlayer,
-        CreateNewLobbyGame
+        CreateANewPlayer
     }
 }

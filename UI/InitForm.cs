@@ -53,9 +53,14 @@ namespace ServerProj
 
         private void btnServer_Click(object sender, EventArgs e)
         {
-            var server = new ServerForm();
+            new Thread(new ThreadStart(delegate
+            {
+                Application.Run(new ServerForm());
+            })).Start();
+
+            //var server = new ServerForm();
             this.Hide();
-            server.ShowDialog();
+            //server.ShowDialog();
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -63,9 +68,16 @@ namespace ServerProj
             if (!User.Instance.ConnectToTheServer())
                 return;
 
+            User.Instance.StartNewThread();
+
             var login = new LogInForm();
             this.Hide();
             login.ShowDialog();
+
+        }
+
+        private void InitForm_Load(object sender, EventArgs e)
+        {
 
         }
     }

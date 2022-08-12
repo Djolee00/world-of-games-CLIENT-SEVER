@@ -52,8 +52,7 @@ namespace ServerProj
                 }
                 finally
                 {
-                    isEnd = true;
-                    socket.Close();
+
                 }
             }
         }
@@ -69,21 +68,13 @@ namespace ServerProj
                     case Operation.CreateANewPlayer: return AddANewPlayer(request.Body); break;
                 }
 
-                return new Response("", false, "");
+                return new Response();
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 throw;
             }
-        }
-
-        public Response CreateNewLobbyGame()
-        {
-            //foreach(var handler in Server.onlineUsers)
-            //    return new Response("Message za tebe", false, null);   
-
-            return null;
         }
 
 
@@ -103,8 +94,10 @@ namespace ServerProj
             var name = body.ToString();
             var player = CreateAPlayer(name,socket);
 
-            return new Response("New player created",true, "");
+            Response response = new Response { Message = "Player is created", Flag = true, Body = "Succ" };
+            return response;
         }
+
 
 
     }

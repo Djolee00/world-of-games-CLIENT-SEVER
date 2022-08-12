@@ -121,6 +121,7 @@
             this.Name = "InitForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InitForm";
+            this.Load += new System.EventHandler(this.InitForm_Load);
             this.ResumeLayout(false);
 
         }

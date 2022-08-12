@@ -14,11 +14,5 @@ namespace Domain.Communication
 
         public string Body { get; set; }
 
-        public Response(string message, bool flag, string body)
-        {
-            Message = message;
-            Flag = flag;
-            Body = body;
-        }
     }
 }

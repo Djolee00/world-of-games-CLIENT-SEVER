@@ -26,11 +26,20 @@ namespace UI
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            var response = User.User.Instance.SendRequestGetResponse(Operation.CreateANewPlayer,textBox1.Text);
-            MessageBox.Show(response.Message);
+            User.User.Instance.SendRequest(Operation.CreateANewPlayer,textBox1.Text);
 
             var lobby = new LobbyForm();
             lobby.Show();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LogInForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

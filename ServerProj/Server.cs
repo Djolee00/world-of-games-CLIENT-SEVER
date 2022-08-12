@@ -39,8 +39,8 @@ namespace ServerProj
                 IPEndPoint port = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9000);
                 socketListener.Bind(port);
                 socketListener.Listen(5);
-
-                new Thread(ListenForConnections).Start();
+                Task.Run(() => ListenForConnections());
+                //new Thread(ListenForConnections).Start();
                 return true;
             }
             catch (Exception ex)
@@ -79,7 +79,8 @@ namespace ServerProj
                    // MessageBox.Show(userSocket.RemoteEndPoint.ToString());
 
                     var handler = new ClientHandler(userSocket);
-                    new Thread(handler.ProcessRequests).Start();
+                    //new Thread(handler.ProcessRequests).Start();
+                    Task.Run(() => handler.ProcessRequests());
                 }
 
 

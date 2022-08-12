@@ -18,6 +18,8 @@ namespace UI.User
         NetworkStream stream;
         BinaryFormatter formatter = new BinaryFormatter();
 
+        public LobbyForm frm;
+
         private User() { }
         private static User instance;
 
@@ -72,8 +74,9 @@ namespace UI.User
         public void SendRequest(Operation operation, string obj)
         {
             var request = CreateRequest(operation, obj);
+            
             formatter.Serialize(stream, request);
-            stream.Flush();
+            
         }
 
         public Response SendRequestGetResponse(Operation operation, string obj)
@@ -93,18 +96,21 @@ namespace UI.User
 
         public void StartNewThread()
         {
-            new Thread(ListenAndAcceptForServerMessage).Start();
+            Task.Run(() => ListenAndAcceptForServerMessage());
+            //new Thread(ListenAndAcceptForServerMessage).Start();
         }
 
         private void ListenAndAcceptForServerMessage()
         {
+
             bool isEnd = false;
             while (!isEnd)
             {
                 try
                 {
-                    var response = formatter.Deserialize(stream);
-                    
+                    var response = (Response)formatter.Deserialize(stream);
+
+
                 }
                 catch (Exception ex)
                 {
@@ -112,5 +118,6 @@ namespace UI.User
                 }
             }
         }
+
     }
 }

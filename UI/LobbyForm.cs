@@ -18,17 +18,15 @@ namespace UI
         public LobbyForm()
         {
             InitializeComponent();
-            User.User.Instance.StartNewThread();
+            User.User.Instance.frm = this;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            
         }
 
-        private void CreateNewGame()
+        private void LobbyForm_Load(object sender, EventArgs e)
         {
-           
 
         }
     }

@@ -32,5 +32,10 @@ namespace ServerProj
         {
             Server.Instance.StopTheServer();
         }
+
+        private void ServerForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
