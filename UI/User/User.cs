@@ -110,6 +110,8 @@ namespace UI.User
                 {
                     var response = (Response)formatter.Deserialize(stream);
 
+                    if (response.Message == "Testna poruka")
+                        frm.ChangeLabel();
 
                 }
                 catch (Exception ex)

@@ -23,11 +23,21 @@ namespace UI
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            User.User.Instance.SendRequest(OperationRequest.MakeANewRoom, "");
         }
 
         private void LobbyForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public  void ChangeLabel()
+        {
+            label1.Invoke((MethodInvoker)delegate
+            {
+                // Running on the UI thread
+                label1.Text = "PROMENA";
+            });
         }
     }
 }

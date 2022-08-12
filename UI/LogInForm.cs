@@ -29,6 +29,7 @@ namespace UI
             User.User.Instance.SendRequest(OperationRequest.CreateANewPlayer,textBox1.Text);
 
             var lobby = new LobbyForm();
+            this.Hide();
             lobby.Show();
         }
 

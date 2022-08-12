@@ -12,7 +12,7 @@ namespace Domain.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public int Score { get; set; }
-        public bool Status { get; set; } = false;
+        public bool Status { get; set; } = true;
         public Socket Socket{ get; set; }
 
     }

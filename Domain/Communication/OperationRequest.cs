@@ -9,6 +9,7 @@ namespace Domain.Communication
     [Serializable]
     public enum OperationRequest
     {
-        CreateANewPlayer
+        CreateANewPlayer,
+        MakeANewRoom
     }
 }

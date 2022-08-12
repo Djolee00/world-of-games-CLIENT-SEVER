@@ -18,10 +18,14 @@ namespace ServerProj
         NetworkStream stream;
         BinaryFormatter formatter = new BinaryFormatter();
 
+        ServerService service;
+
         public ClientHandler(Socket socket)
         {
             this.socket = socket;
             stream = new NetworkStream(socket);
+
+            service = new ServerService(socket);
         }
 
         public void ProcessRequests()
@@ -57,15 +61,14 @@ namespace ServerProj
             }
         }
 
-        
-
         public Response ProcessSingleRequest(Request request)
         {
             try
             {
                 switch (request.Operation)
                 {
-                    case OperationRequest.CreateANewPlayer: return AddANewPlayer(request.Body); break;
+                    case OperationRequest.CreateANewPlayer: return service.AddANewPlayer(request.Body);
+                    case OperationRequest.MakeANewRoom: return SendResponse();
                 }
 
                 return new Response();
@@ -77,27 +80,22 @@ namespace ServerProj
             }
         }
 
-
-        private Player CreateAPlayer(string name, Socket socket)
+        public Response SendResponse()
         {
-            return new Player()
+            Response response = new Response();
+            response.Message = "Testna poruka";
+            foreach (var player in Server.onlineUsers)
             {
-                Name = name,
-                Socket = socket,
-                Score = 0,
-                Id = (Server.id++).ToString()
-            };
+                if (player.Socket == socket) continue;
+
+                var str = new NetworkStream(player.Socket);
+                formatter.Serialize(str, response);
+            }
+
+            formatter.Serialize(stream, response);
+
+            return response ;
         }
-
-        private Response AddANewPlayer(object body)
-        {
-            var name = body.ToString();
-            var player = CreateAPlayer(name,socket);
-
-            Response response = new Response { Message = "Player is created", Flag = true, Body = "Succ" };
-            return response;
-        }
-
 
 
     }
