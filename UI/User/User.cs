@@ -32,6 +32,7 @@ namespace UI.User
             }
         }
 
+        #region Server settings
         public bool ConnectToTheServer()
         {
             try
@@ -66,6 +67,10 @@ namespace UI.User
         //    }
         //}
 
+        #endregion
+
+        #region Handling requests
+
         private Request CreateRequest(OperationRequest operation, string obj)
         {
             var request = new Request(operation, obj);
@@ -94,6 +99,10 @@ namespace UI.User
             }
         }
 
+        #endregion
+
+        #region Listening for server news and responding
+
         public void StartNewThread()
         {
             Task.Run(() => ListenAndAcceptForServerMessage());
@@ -112,7 +121,7 @@ namespace UI.User
 
                     switch (response.Operation)
                     {
-                        case OperationResponse.RoomCreated: frm.RefreshDataGrid(response.Message); break;
+                        case OperationResponse.LobbyGameCreated: frm.RefreshDataGrid(response.Message); break;
                     }
 
                 }
@@ -122,6 +131,8 @@ namespace UI.User
                 }
             }
         }
+
+        #endregion
 
     }
 }

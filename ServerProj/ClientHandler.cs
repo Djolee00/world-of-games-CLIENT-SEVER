@@ -27,7 +27,7 @@ namespace ServerProj
 
             service = new ServerService(socket);
         }
-
+        #region Handling requests
         public void ProcessRequests()
         {
 
@@ -37,8 +37,7 @@ namespace ServerProj
                 try
                 {
                     var request = (Request)formatter.Deserialize(stream);
-                    var response = ProcessSingleRequest(request);
-                    formatter.Serialize(stream, response);
+                    ProcessSingleRequest(request);
                 }
                 catch(SocketException)
                 {
@@ -61,17 +60,17 @@ namespace ServerProj
             }
         }
 
-        public Response ProcessSingleRequest(Request request)
+        public void ProcessSingleRequest(Request request)
         {
             try
             {
                 switch (request.Operation)
                 {
-                    case OperationRequest.CreateANewPlayer: return service.AddANewPlayer(request.Body);
-                    case OperationRequest.MakeANewRoom:  service.MakeANewRoom(); RefreshLobby(); return new Response();
+                    case OperationRequest.CreateANewPlayer: service.AddANewPlayer(request.Body); break;
+                    case OperationRequest.MakeANewLobbyGame: service.MakeANewLobbyGame(); RefreshLobby(); break;
+
                 }
 
-                return new Response();
             }
             catch(Exception ex)
             {
@@ -79,7 +78,21 @@ namespace ServerProj
                 throw;
             }
         }
+        #endregion
 
+        #region Handling responses
+        private void SendSingleResponse(NetworkStream str, Response response) => formatter.Serialize(str, response);
+
+        public void SendResponseToAll(Response response)
+        {
+            foreach (var player in Server.onlineUsers)
+            {
+                var str = new NetworkStream(player.Socket);
+                SendSingleResponse(str, response);
+            }
+        }
+
+        // mozda ne treba, imamo konstruktor, nek stoji
         private Response CreateResponse(string message, bool flag, OperationResponse operation)
         {
             return new Response
@@ -89,40 +102,16 @@ namespace ServerProj
                 Operation = operation
             };
         }
+        #endregion
 
-        public Response SendResponse(string message, OperationResponse operation)
-        {
-            var response = CreateResponse(message, true, operation);
-
-            foreach (var player in Server.onlineUsers)
-            {
-                if (player.Socket == socket) continue;
-
-                var str = new NetworkStream(player.Socket);
-                formatter.Serialize(str, response);
-            }
-
-            formatter.Serialize(stream, response);
-
-            return response ;
-        }
+        #region Methods for communication
 
         public void RefreshLobby()
         {
-            string rooms = DisplayAllRooms();
-            var response = SendResponse(rooms, OperationResponse.RoomCreated);
-
+            string games = service.DisplayAllLobbyGames();
+            SendResponseToAll(new Response(games, true, OperationResponse.LobbyGameCreated));
         }
 
-        private string DisplayAllRooms()
-        {
-            string response = "";
-            foreach (var room in Server.availableGames)
-                response += $"{room.Owner} {room.OwnerId} {(room.Status ? "Available" : "In game")};";
-
-            return response;
-        }
-
-
+        #endregion
     }
 }

@@ -18,21 +18,20 @@ namespace UI
         public LobbyForm()
         {
             InitializeComponent();
-            User.User.Instance.frm = this;
             CheckForIllegalCrossThreadCalls = false;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            User.User.Instance.SendRequest(OperationRequest.MakeANewRoom, "");
+            User.User.Instance.SendRequest(OperationRequest.MakeANewLobbyGame, "");
         }
 
         private void LobbyForm_Load(object sender, EventArgs e)
         {
-
+            User.User.Instance.frm = this;
         }
 
-        public  void RefreshDataGrid(string rooms)
+        public  void RefreshDataGrid(string games)
         {
             try
             {
@@ -41,12 +40,11 @@ namespace UI
                     dataGridView1.Rows.Clear();
                 });
 
-                 // da li zbog ovoga puca?
-                var split = rooms.Split(';');
+                var split = games.Split(';');
 
-                foreach (var room in split)
+                foreach (var game in split)
                 {
-                    var row = room.Split(' ');
+                    var row = game.Split(' ');
                     if (row[0] != "")
                     dataGridView1.Invoke(delegate
                     {
