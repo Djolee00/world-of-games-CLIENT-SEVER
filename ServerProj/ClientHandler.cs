@@ -68,6 +68,7 @@ namespace ServerProj
                 {
                     case OperationRequest.CreateANewPlayer: service.AddANewPlayer(request.Body); break;
                     case OperationRequest.MakeANewLobbyGame: service.MakeANewLobbyGame(); RefreshLobby(); break;
+                    case OperationRequest.CreateGameRequest: SendGameRequest(request.Body);break;
 
                 }
 
@@ -112,6 +113,14 @@ namespace ServerProj
             SendResponseToAll(new Response(games, true, OperationResponse.LobbyGameCreated));
         }
 
+
+        public void SendGameRequest(string id)
+        {
+            var temp = service.FindStreamById(id);
+            if (temp.Item1 == null)
+                return;
+            SendSingleResponse(temp.Item1, new Response(temp.Item2,true,OperationResponse.ReceivedGameRequest));
+        }
         #endregion
     }
 }

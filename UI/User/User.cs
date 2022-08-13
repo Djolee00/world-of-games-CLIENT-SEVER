@@ -122,6 +122,7 @@ namespace UI.User
                     switch (response.Operation)
                     {
                         case OperationResponse.LobbyGameCreated: frm.RefreshDataGrid(response.Message); break;
+                        case OperationResponse.ReceivedGameRequest:frm.ShowGameRequest(response.Message); break;
                     }
 
                 }

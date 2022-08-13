@@ -11,6 +11,7 @@ namespace Domain.Communication
     {
         None,
         CreateANewPlayer,
-        MakeANewLobbyGame
+        MakeANewLobbyGame,
+        CreateGameRequest
     }
 }

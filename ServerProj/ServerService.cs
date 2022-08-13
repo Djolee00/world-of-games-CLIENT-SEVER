@@ -65,5 +65,14 @@ namespace ServerProj
 
         #endregion
 
+
+        public (NetworkStream,string) FindStreamById(string id)
+        {
+            var player = Server.onlineUsers.First(x => x.Id == id);
+            if (player == localPlayer)
+                //check if player who made lobby clicked his lobby
+                return (null, null);
+            return (new NetworkStream(player.Socket), localPlayer.Name);
+        }
     }
 }

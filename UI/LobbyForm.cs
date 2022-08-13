@@ -48,7 +48,7 @@ namespace UI
                     if (row[0] != "")
                     dataGridView1.Invoke(delegate
                     {
-                        dataGridView1.Rows.Add(row[0], row[2]);
+                        dataGridView1.Rows.Add(row[0], row[1] ,row[2]);
                     });
                 }
             }
@@ -56,6 +56,22 @@ namespace UI
             {
                 MessageBox.Show("OVDE");
             }
+        }
+
+
+        public void ShowGameRequest(string username)
+        {
+            MessageBox.Show($"User:{username} wants to join","Challenge",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string id = "";
+            dataGridView1.Invoke(delegate
+            {
+               id  = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            });
+            User.User.Instance.SendRequest(OperationRequest.CreateGameRequest, id);
         }
     }
 }
