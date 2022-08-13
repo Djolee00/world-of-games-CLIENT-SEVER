@@ -68,7 +68,7 @@ namespace ServerProj
                 switch (request.Operation)
                 {
                     case OperationRequest.CreateANewPlayer: return service.AddANewPlayer(request.Body);
-                    case OperationRequest.MakeANewRoom: return SendResponse();
+                    case OperationRequest.MakeANewRoom:  service.MakeANewRoom(); RefreshLobby(); return new Response();
                 }
 
                 return new Response();
@@ -80,10 +80,20 @@ namespace ServerProj
             }
         }
 
-        public Response SendResponse()
+        private Response CreateResponse(string message, bool flag, OperationResponse operation)
         {
-            Response response = new Response();
-            response.Message = "Testna poruka";
+            return new Response
+            {
+                Message = message,
+                Flag = flag,
+                Operation = operation
+            };
+        }
+
+        public Response SendResponse(string message, OperationResponse operation)
+        {
+            var response = CreateResponse(message, true, operation);
+
             foreach (var player in Server.onlineUsers)
             {
                 if (player.Socket == socket) continue;
@@ -95,6 +105,22 @@ namespace ServerProj
             formatter.Serialize(stream, response);
 
             return response ;
+        }
+
+        public void RefreshLobby()
+        {
+            string rooms = DisplayAllRooms();
+            var response = SendResponse(rooms, OperationResponse.RoomCreated);
+
+        }
+
+        private string DisplayAllRooms()
+        {
+            string response = "";
+            foreach (var room in Server.availableGames)
+                response += $"{room.Owner} {room.OwnerId} {(room.Status ? "Available" : "In game")};";
+
+            return response;
         }
 
 

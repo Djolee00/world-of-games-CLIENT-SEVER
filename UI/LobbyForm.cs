@@ -19,6 +19,7 @@ namespace UI
         {
             InitializeComponent();
             User.User.Instance.frm = this;
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -31,13 +32,32 @@ namespace UI
 
         }
 
-        public  void ChangeLabel()
+        public  void RefreshDataGrid(string rooms)
         {
-            label1.Invoke((MethodInvoker)delegate
+            try
             {
-                // Running on the UI thread
-                label1.Text = "PROMENA";
-            });
+                dataGridView1.Invoke(delegate
+                {
+                    dataGridView1.Rows.Clear();
+                });
+
+                 // da li zbog ovoga puca?
+                var split = rooms.Split(';');
+
+                foreach (var room in split)
+                {
+                    var row = room.Split(' ');
+                    if (row[0] != "")
+                    dataGridView1.Invoke(delegate
+                    {
+                        dataGridView1.Rows.Add(row[0], row[2]);
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("OVDE");
+            }
         }
     }
 }

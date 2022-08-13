@@ -8,6 +8,7 @@ namespace Domain.Communication
 {
     public enum OperationResponse
     {
-
+        None,
+        RoomCreated
     }
 }
