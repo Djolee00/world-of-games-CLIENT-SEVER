@@ -42,7 +42,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(1810, 13);
+            this.btnCancel.Location = new System.Drawing.Point(711, 13);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(45, 45);
@@ -58,9 +58,9 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(187, 182);
+            this.label1.Location = new System.Drawing.Point(164, 161);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(415, 70);
+            this.label1.Size = new System.Drawing.Size(411, 59);
             this.label1.TabIndex = 1;
             this.label1.Text = "WORLD OF GAMES";
             // 
@@ -74,7 +74,7 @@
             this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPlay.ForeColor = System.Drawing.Color.White;
-            this.btnPlay.Location = new System.Drawing.Point(771, 748);
+            this.btnPlay.Location = new System.Drawing.Point(201, 261);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(306, 49);
             this.btnPlay.TabIndex = 2;
@@ -94,7 +94,7 @@
             this.btnServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnServer.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnServer.ForeColor = System.Drawing.Color.White;
-            this.btnServer.Location = new System.Drawing.Point(771, 816);
+            this.btnServer.Location = new System.Drawing.Point(201, 343);
             this.btnServer.Name = "btnServer";
             this.btnServer.Size = new System.Drawing.Size(306, 49);
             this.btnServer.TabIndex = 3;
@@ -106,11 +106,11 @@
             // 
             // InitForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(22F, 54F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1868, 1481);
+            this.ClientSize = new System.Drawing.Size(769, 519);
             this.ControlBox = false;
             this.Controls.Add(this.btnServer);
             this.Controls.Add(this.btnPlay);

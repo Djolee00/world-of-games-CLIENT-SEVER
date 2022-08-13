@@ -23,16 +23,56 @@ namespace UI
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+
             User.User.Instance.SendRequest(OperationRequest.MakeANewLobbyGame, "");
         }
 
         private void LobbyForm_Load(object sender, EventArgs e)
         {
             User.User.Instance.frm = this;
-            User.User.Instance.SendRequest(OperationRequest.LobbyRefresh, "");
+            User.User.Instance.SendRequest(OperationRequest.WelcomeLobby, "");
+            panel1.Visible = false;
         }
 
-        public  void RefreshDataGrid(string games)
+        #region Game request logic
+
+        public void ShowGameRequest(string player)
+        {
+            var username = player.Split(';')[0];
+            var id = player.Split(';')[1];
+
+            ShowPanelForGameRequest(true, $"Do you accept the challange of {username}?");
+            lblId.Text = id;
+        }
+
+        private void ShowPanelForGameRequest(bool show, string labelText)
+        {
+            panel1.Visible = true;
+            btnYes.Visible = btnNo.Visible = show;
+            btnOk.Visible = !show;
+
+            lblPanel.Text = labelText;
+        }
+
+        public void ReceiveRejectNotification()
+        {
+            ShowPanelForGameRequest(false, "The player didn't accept your challange.");
+        }
+
+        #endregion
+
+        #region DataGridView
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string id = "";
+            dataGridView1.Invoke(delegate
+            {
+               id  = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+            });
+            User.User.Instance.SendRequest(OperationRequest.CreateGameRequest, id);
+        }
+
+        public void RefreshDataGrid(string games)
         {
             try
             {
@@ -47,32 +87,38 @@ namespace UI
                 {
                     var row = game.Split(' ');
                     if (row[0] != "")
-                    dataGridView1.Invoke(delegate
-                    {
-                        dataGridView1.Rows.Add(row[0], row[1] ,row[2]);
-                    });
+                        dataGridView1.Invoke(delegate
+                        {
+                            dataGridView1.Rows.Add(row[0], row[1], "Challange", row[2]);
+                        });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("OVDE");
             }
         }
 
+        #endregion
 
-        public void ShowGameRequest(string username)
+        #region Panel button's events
+        private void btnNo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"User:{username} wants to join","Challenge",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            User.User.Instance.SendRequest(OperationRequest.GameRejected, lblId.Text);
+            panel1.Visible = false;
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
-            string id = "";
-            dataGridView1.Invoke(delegate
-            {
-               id  = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            });
-            User.User.Instance.SendRequest(OperationRequest.CreateGameRequest, id);
+            panel1.Visible = false;
         }
+
+        private void btnYes_Click(object sender, EventArgs e)
+        {
+            // TO DO
+        }
+
+        #endregion
+
     }
 }

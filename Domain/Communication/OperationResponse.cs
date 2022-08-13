@@ -9,7 +9,8 @@ namespace Domain.Communication
     public enum OperationResponse
     {
         None,
-        LobbyGameCreated,
-        ReceivedGameRequest
+        RefreshLobby,
+        ReceivedGameRequest,
+        GameRejectedNotification
     }
 }

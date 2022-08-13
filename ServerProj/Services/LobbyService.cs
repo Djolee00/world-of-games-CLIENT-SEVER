@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ServerProj
 {
-    public class ServerService
+    public class LobbyService
     {
         private Socket socket;
         private Player? localPlayer;
 
-        public ServerService(Socket socket)
+        public LobbyService(Socket socket)
         {
             this.socket = socket;
         }
@@ -42,7 +42,7 @@ namespace ServerProj
 
         #region Lobby games
 
-        public void MakeANewLobbyGame() // lepse nesto za ove nullable porukice
+        public bool MakeANewLobbyGame() // lepse nesto za ove nullable porukice
         {
             var game = new LobbyGame
             {
@@ -51,7 +51,11 @@ namespace ServerProj
                 Status = localPlayer?.Status ?? true
             };
 
-            Server.availableGames.Add(game);
+            if (Server.availableGames.FirstOrDefault(g => g.OwnerId == game.OwnerId) != null)
+                return false;
+
+           Server.availableGames.Add(game);
+           return true;
         }
 
         public string DisplayAllLobbyGames()
@@ -65,14 +69,19 @@ namespace ServerProj
 
         #endregion
 
-
         public (NetworkStream,string) FindStreamById(string id)
         {
-            var player = Server.onlineUsers.First(x => x.Id == id);
+            var player = FindAPlayerById(id);
+
+            //check if player who made lobby clicked his lobby
             if (player == localPlayer)
-                //check if player who made lobby clicked his lobby
                 return (null, null);
-            return (new NetworkStream(player.Socket), localPlayer.Name);
+
+            return (new NetworkStream(player.Socket), localPlayer.Name+';'+localPlayer.Id);
         }
+
+        public Player FindAPlayerById(string id) => Server.onlineUsers.FirstOrDefault(p => p.Id == id);
+
+        
     }
 }

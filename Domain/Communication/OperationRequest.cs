@@ -12,7 +12,9 @@ namespace Domain.Communication
         None,
         CreateANewPlayer,
         MakeANewLobbyGame,
+        GameRejected,
         CreateGameRequest,
+        WelcomeLobby,
         LobbyRefresh
     }
 }
