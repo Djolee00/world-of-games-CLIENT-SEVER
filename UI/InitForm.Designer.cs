@@ -60,7 +60,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(164, 161);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(411, 59);
+            this.label1.Size = new System.Drawing.Size(1020, 142);
             this.label1.TabIndex = 1;
             this.label1.Text = "WORLD OF GAMES";
             // 
@@ -106,7 +106,7 @@
             // 
             // InitForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(22F, 54F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));

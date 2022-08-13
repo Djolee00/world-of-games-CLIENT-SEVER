@@ -25,6 +25,7 @@ namespace ServerProj
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            Server.Instance.StopTheServer();
             this.Close();
         }
 
@@ -36,6 +37,11 @@ namespace ServerProj
         private void ServerForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            Server.Instance.StopTheServer();
         }
     }
 }

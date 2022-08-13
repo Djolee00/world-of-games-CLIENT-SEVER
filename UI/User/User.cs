@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace UI.User
 {
@@ -127,9 +128,14 @@ namespace UI.User
                     }
 
                 }
-                catch (Exception ex)
+                catch (SerializationException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    
+                    isEnd = true;
+                    stream.Close();
+                    userSocket.Close();
+                    MessageBox.Show("Server has been lost");
+                    
                 }
             }
         }

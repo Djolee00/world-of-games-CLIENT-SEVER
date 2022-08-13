@@ -77,8 +77,11 @@ namespace ServerProj
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                throw;
+                //MessageBox.Show(ex.Message);
+                //throw;
+                socket.Close();
+                stream.Close();
+               
             }
         }
         #endregion

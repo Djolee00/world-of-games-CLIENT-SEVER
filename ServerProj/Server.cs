@@ -57,7 +57,7 @@ namespace ServerProj
             try
             {
                 foreach (var player in onlineUsers)
-                    player.Socket.Close(); // promeniti posle u clsoe socket metodu TO DO
+                    player.Socket.Close(); // promeniti posle u close socket metodu TO DO
 
                 socketListener.Close();
 
@@ -79,7 +79,6 @@ namespace ServerProj
                     Socket userSocket = socketListener.Accept();
 
                    // MessageBox.Show(userSocket.RemoteEndPoint.ToString());
-
                     var handler = new ClientHandler(userSocket);
                     //new Thread(handler.ProcessRequests).Start();
                     Task.Run(() => handler.ProcessRequests());
