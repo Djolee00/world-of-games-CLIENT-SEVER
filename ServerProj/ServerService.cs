@@ -12,7 +12,7 @@ namespace ServerProj
     public class ServerService
     {
         private Socket socket;
-        private Player localPlayer;
+        private Player? localPlayer;
 
         public ServerService(Socket socket)
         {
@@ -21,56 +21,48 @@ namespace ServerProj
 
         #region Creating new player
 
-        private Player CreateAPlayer(string name, Socket socket)
-        {
-            return new Player()
+        private Player CreateAPlayer(string name, Socket socket) => new Player()
             {
                 Name = name,
                 Socket = socket,
                 Score = 0,
                 Id = (Server.id++).ToString()
             };
-        }
+        
 
-        public Response AddANewPlayer(object body)
+        public void AddANewPlayer(string body)
         {
             var name = body.ToString();
             localPlayer = CreateAPlayer(name, socket);
 
             Server.onlineUsers.Add(localPlayer);
-
-            Response response = new Response { Message = "Player is created", Flag = true };
-            return response;
         }
 
         #endregion
 
-        #region New room
+        #region Lobby games
 
-        public Response MakeANewRoom()
+        public void MakeANewLobbyGame() // lepse nesto za ove nullable porukice
         {
             var game = new LobbyGame
             {
-                Owner = localPlayer.Name,
-                OwnerId = Int32.Parse(localPlayer.Id),
-                Status = localPlayer.Status
+                Owner = localPlayer?.Name ?? "",
+                OwnerId = Int32.Parse(localPlayer?.Id ?? "1"),
+                Status = localPlayer?.Status ?? true
             };
 
             Server.availableGames.Add(game);
+        }
 
-            return new Response
-            {
-                Message = "New room",
-                Flag = true,
-                Operation = OperationResponse.RoomCreated
-            };
-        }
-        
-        private void RefreshLobby()
+        public string DisplayAllLobbyGames()
         {
-            
+            string games = "";
+            foreach (var game in Server.availableGames)
+                games += $"{game.Owner} {game.OwnerId} {(game.Status ? "Available" : "In game")};";
+
+            return games;
         }
-        
+
         #endregion
 
     }
