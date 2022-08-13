@@ -11,7 +11,7 @@ namespace Domain.Communication
     {
         public string Message { get; set; }
         public bool Flag { get; set; }
-        public OperationResponse Operation { get; set; }
+        public OperationResponse Operation { get; set; } = OperationResponse.None;
 
         public Response()
         {

@@ -35,9 +35,9 @@ namespace ServerProj
         public Response AddANewPlayer(object body)
         {
             var name = body.ToString();
-            var player = CreateAPlayer(name, socket);
+            localPlayer = CreateAPlayer(name, socket);
 
-            Server.onlineUsers.Add(player);
+            Server.onlineUsers.Add(localPlayer);
 
             Response response = new Response { Message = "Player is created", Flag = true };
             return response;
@@ -47,8 +47,29 @@ namespace ServerProj
 
         #region New room
 
+        public Response MakeANewRoom()
+        {
+            var game = new LobbyGame
+            {
+                Owner = localPlayer.Name,
+                OwnerId = Int32.Parse(localPlayer.Id),
+                Status = localPlayer.Status
+            };
 
+            Server.availableGames.Add(game);
+
+            return new Response
+            {
+                Message = "New room",
+                Flag = true,
+                Operation = OperationResponse.RoomCreated
+            };
+        }
         
+        private void RefreshLobby()
+        {
+            
+        }
         
         #endregion
 

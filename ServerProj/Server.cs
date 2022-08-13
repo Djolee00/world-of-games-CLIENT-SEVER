@@ -13,6 +13,7 @@ namespace ServerProj
     {
         Socket socketListener;
         public static List<Player> onlineUsers = new List<Player>();
+        public static List<LobbyGame> availableGames = new List<LobbyGame>();
 
         public static int id = 1;
 
@@ -110,6 +111,6 @@ namespace ServerProj
             }
         }
 
-
+       
     }
 }

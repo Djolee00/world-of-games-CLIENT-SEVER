@@ -110,8 +110,10 @@ namespace UI.User
                 {
                     var response = (Response)formatter.Deserialize(stream);
 
-                    if (response.Message == "Testna poruka")
-                        frm.ChangeLabel();
+                    switch (response.Operation)
+                    {
+                        case OperationResponse.RoomCreated: frm.RefreshDataGrid(response.Message); break;
+                    }
 
                 }
                 catch (Exception ex)
