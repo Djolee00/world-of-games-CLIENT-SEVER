@@ -68,6 +68,7 @@ namespace ServerProj
                 {
                     case OperationRequest.CreateANewPlayer: service.AddANewPlayer(request.Body); break;
                     case OperationRequest.MakeANewLobbyGame: service.MakeANewLobbyGame(); RefreshLobby(); break;
+                    case OperationRequest.LobbyRefresh: RefreshLobby();break;
                     case OperationRequest.CreateGameRequest: SendGameRequest(request.Body);break;
 
                 }

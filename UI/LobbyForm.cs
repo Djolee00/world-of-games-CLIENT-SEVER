@@ -29,6 +29,7 @@ namespace UI
         private void LobbyForm_Load(object sender, EventArgs e)
         {
             User.User.Instance.frm = this;
+            User.User.Instance.SendRequest(OperationRequest.LobbyRefresh, "");
         }
 
         public  void RefreshDataGrid(string games)
