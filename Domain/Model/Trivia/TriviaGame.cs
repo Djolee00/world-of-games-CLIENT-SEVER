@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model.Trivia
 {
-    public class Game
+    public class TriviaGame
     {
     }
 }

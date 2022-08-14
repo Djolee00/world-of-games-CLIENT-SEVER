@@ -14,6 +14,8 @@ namespace ServerProj
         private Socket socket;
         private Player? localPlayer;
 
+        public Player LocalPlayer => localPlayer;
+
         public LobbyService(Socket socket)
         {
             this.socket = socket;

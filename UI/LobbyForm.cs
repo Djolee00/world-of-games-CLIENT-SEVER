@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UI.Games;
 
 namespace UI
 {
@@ -115,7 +116,12 @@ namespace UI
 
         private void btnYes_Click(object sender, EventArgs e)
         {
-            // TO DO
+            panel1.Visible = false;
+
+            User.User.Instance.SendRequest(OperationRequest.GameAccepted, lblId.Text);
+
+            //var diceFrm = new RollADiceForm();
+            //diceFrm.ShowDialog();
         }
 
         #endregion

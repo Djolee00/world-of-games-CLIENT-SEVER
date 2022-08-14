@@ -1,5 +1,6 @@
 ﻿using Domain.Communication;
 using Domain.Model;
+using ServerProj.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace ServerProj
 
             service = new LobbyService(socket);
         }
+
         #region Handling requests
         public void ProcessRequests()
         {
@@ -72,6 +74,7 @@ namespace ServerProj
                     case OperationRequest.WelcomeLobby: WelcomeToLobby(); break;
                     case OperationRequest.CreateGameRequest: SendGameRequest(request.Body);break;
                     case OperationRequest.GameRejected: SendRejectGameNotification(request.Body); break;
+                    case OperationRequest.GameAccepted: GameAccepted(request.Body); break;
                 }
 
             }
@@ -134,7 +137,6 @@ namespace ServerProj
 
             SendSingleResponse(temp.Item1, new Response(temp.Item2,true,OperationResponse.ReceivedGameRequest));
         }
-        #endregion
 
         private void SendRejectGameNotification(string id)
         {
@@ -147,6 +149,16 @@ namespace ServerProj
             SendSingleResponse(str, new Response("Game rejected", true, OperationResponse.GameRejectedNotification));
         }
 
+        #endregion
+
+        private void GameAccepted(string opponentId)
+        {
+            var player = service.LocalPlayer;
+            var opponentPlayer = service.FindAPlayerById(opponentId);
+
+            var gameHandler = new GameHandler(player, opponentPlayer);
+            Task.Run(() => gameHandler.GameCommunication());
+        }
         #endregion
     }
 }

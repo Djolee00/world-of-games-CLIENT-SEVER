@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Model.Roll_a_Dice
 {
-    public class Game
+    public class DiceGame
     {
         private const int FinalScore = 50;
 
@@ -14,7 +14,7 @@ namespace Domain.Model.Roll_a_Dice
         public int Score1 { get; set; }
         public int Score2 { get; set; }
 
-        public Game(int currentScore, int score1, int score2)
+        public DiceGame(int currentScore, int score1, int score2)
         {
             CurrentScore = currentScore;
             Score1 = score1;

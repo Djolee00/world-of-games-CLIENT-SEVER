@@ -15,6 +15,7 @@ namespace Domain.Communication
         GameRejected,
         CreateGameRequest,
         WelcomeLobby,
-        LobbyRefresh
+        LobbyRefresh,
+        GameAccepted
     }
 }
