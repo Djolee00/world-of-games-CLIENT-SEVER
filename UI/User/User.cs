@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using UI.Games;
 
 namespace UI.User
 {
@@ -19,7 +20,9 @@ namespace UI.User
         NetworkStream stream;
         BinaryFormatter formatter = new BinaryFormatter();
 
-        public LobbyForm frm;
+        public LobbyForm frmLobby;
+        public RollADiceForm frmDice;
+
 
         private User() { }
         private static User instance;
@@ -122,9 +125,10 @@ namespace UI.User
 
                     switch (response.Operation)
                     {
-                        case OperationResponse.RefreshLobby: frm.RefreshDataGrid(response.Message); break;
-                        case OperationResponse.ReceivedGameRequest:frm.ShowGameRequest(response.Message); break;
-                        case OperationResponse.GameRejectedNotification: frm.ReceiveRejectNotification(); break;
+                        case OperationResponse.RefreshLobby: frmLobby.RefreshDataGrid(response.Message); break;
+                        case OperationResponse.ReceivedGameRequest:frmLobby.ShowGameRequest(response.Message); break;
+                        case OperationResponse.GameRejectedNotification: frmLobby.ReceiveRejectNotification(); break;
+                        case OperationResponse.DiceGameStarted:frmLobby.StartNewGame(response.Message); break;
                     }
 
                 }

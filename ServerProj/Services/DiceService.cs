@@ -8,5 +8,6 @@ namespace ServerProj.Services
 {
     public class DiceService
     {
+
     }
 }

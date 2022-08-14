@@ -29,7 +29,12 @@ namespace ServerProj.Handlers
 
         public void GameCommunication()
         {
+            GameDiceInit();
+            bool end = false;
+            while (!end)
+            {
 
+            }
         }
 
         #region Responses
@@ -42,5 +47,12 @@ namespace ServerProj.Handlers
         }
 
         #endregion
+
+
+        private void GameDiceInit()
+        {
+            SendResponseToAll(new Response(player1.Name+";"+player2.Name,true,OperationResponse.DiceGameStarted));
+        }
+
     }
 }

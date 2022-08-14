@@ -30,7 +30,7 @@ namespace UI
 
         private void LobbyForm_Load(object sender, EventArgs e)
         {
-            User.User.Instance.frm = this;
+            User.User.Instance.frmLobby = this;
             User.User.Instance.SendRequest(OperationRequest.WelcomeLobby, "");
             panel1.Visible = false;
         }
@@ -125,6 +125,15 @@ namespace UI
         }
 
         #endregion
+
+        public void StartNewGame(string players)
+        {
+            var player1 = players.Split(";")[0];
+            var player2 = players.Split(";")[1];
+            var diceForm = new RollADiceForm(player1,player2);
+            this.Close();
+            diceForm.ShowDialog();
+        }
 
     }
 }
