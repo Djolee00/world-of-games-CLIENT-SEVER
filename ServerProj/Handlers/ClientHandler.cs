@@ -82,8 +82,8 @@ namespace ServerProj
             {
                 //MessageBox.Show(ex.Message);
                 //throw;
-                socket.Close();
-                stream.Close();
+               socket.Close();
+               stream.Close();
                
             }
         }
@@ -156,7 +156,9 @@ namespace ServerProj
             var player = service.LocalPlayer;
             var opponentPlayer = service.FindAPlayerById(opponentId);
 
-            var gameHandler = new GameHandler(player, opponentPlayer);
+            var gameHandler = new GameHandler(player, opponentPlayer,stream,new NetworkStream(opponentPlayer.Socket));
+            
+            
             Task.Run(() => gameHandler.GameCommunication());
         }
         #endregion

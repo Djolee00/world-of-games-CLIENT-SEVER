@@ -129,6 +129,8 @@ namespace UI.User
                         case OperationResponse.ReceivedGameRequest:frmLobby.ShowGameRequest(response.Message); break;
                         case OperationResponse.GameRejectedNotification: frmLobby.ReceiveRejectNotification(); break;
                         case OperationResponse.DiceGameStarted:frmLobby.StartNewGame(response.Message); break;
+                        case OperationResponse.DisablePlayer: frmDice.DisableForm();break;
+                        case OperationResponse.ChangeScores:frmDice.ChangeScores(response.Message);break;
                     }
 
                 }

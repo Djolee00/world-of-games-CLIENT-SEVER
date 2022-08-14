@@ -130,8 +130,9 @@ namespace UI
         {
             var player1 = players.Split(";")[0];
             var player2 = players.Split(";")[1];
-            var diceForm = new RollADiceForm(player1,player2);
+            var diceForm = new RollADiceForm();
             this.Close();
+            diceForm.GameFormInit(player1,player2);
             diceForm.ShowDialog();
         }
 

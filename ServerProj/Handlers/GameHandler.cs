@@ -1,5 +1,6 @@
 ﻿using Domain.Communication;
 using Domain.Model;
+using ServerProj.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,17 @@ namespace ServerProj.Handlers
         Player player1, player2;
         NetworkStream stream1, stream2;
         BinaryFormatter formatter;
+        DiceService diceService;
+        bool playerOneTurn = true;
 
-        public GameHandler(Player p1, Player p2)
+        public GameHandler(Player p1, Player p2,NetworkStream s1,NetworkStream s2)
         {
+            stream1 = s1;
+            stream2 = s2;
             player1 = p1;
             player2 = p2;
-            stream1 = new NetworkStream(player1.Socket);
-            stream2 = new NetworkStream(player2.Socket);
             formatter = new BinaryFormatter();
-            
+            diceService = new DiceService();
 
         }
 
@@ -33,7 +36,15 @@ namespace ServerProj.Handlers
             bool end = false;
             while (!end)
             {
+                try {
+                    DisablePlayer();
+                    PlayerTurn();
+                    ChangePlayerTurn();
+                }catch(Exception e)
+                {
 
+                }
+                
             }
         }
 
@@ -54,5 +65,34 @@ namespace ServerProj.Handlers
             SendResponseToAll(new Response(player1.Name+";"+player2.Name,true,OperationResponse.DiceGameStarted));
         }
 
+        private void DisablePlayer()
+        {
+            SendSingleResponse(stream2, new Response("", false, OperationResponse.DisablePlayer));
+        }
+
+        private void PlayerTurn()
+        {
+            bool end = false;
+            while(!end)
+            {
+                try {
+                    var request = (Request)formatter.Deserialize(stream1);
+                    end = diceService.ProcessPlayerTurn(request, playerOneTurn);
+                    SendResponseToAll(new Response(diceService.GetScores(), true, OperationResponse.ChangeScores));
+                }catch(Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+               
+            }
+        }
+
+        private void ChangePlayerTurn()
+        {
+            var temp = stream1;
+            stream1 = stream2;
+            stream2 = temp;
+            playerOneTurn = !playerOneTurn;
+        }
     }
 }

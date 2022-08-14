@@ -8,7 +8,7 @@ namespace Domain.Model.Roll_a_Dice
 {
     public class DiceGame
     {
-        private const int FinalScore = 50;
+        private const int FinalScore = 20;
 
         public int CurrentScore { get; set; }
         public int Score1 { get; set; }
@@ -20,5 +20,8 @@ namespace Domain.Model.Roll_a_Dice
             Score1 = score1;
             Score2 = score2;
         }
+
+        public DiceGame()
+        { }
     }
 }
