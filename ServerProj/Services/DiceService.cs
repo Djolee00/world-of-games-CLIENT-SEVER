@@ -43,6 +43,10 @@ namespace ServerProj.Services
 
 
                 diceGame.CurrentScore = 0;
+                diceNumber = 0;
+
+                if (diceGame.Score1 >= DiceGame.FinalScore || diceGame.Score2 >= DiceGame.FinalScore)
+                    diceGame.Winner = true;
 
                 return true;
             }
@@ -55,7 +59,7 @@ namespace ServerProj.Services
         private void ChangeCurrentScore(int score) =>  diceGame.CurrentScore += score;
 
         public string GetScores() => $"{diceGame.CurrentScore};{diceGame.Score1};{diceGame.Score2};{diceNumber}";
-        
-        
+
+        public bool IsGameFinished() => diceGame.Winner;
     }
 }

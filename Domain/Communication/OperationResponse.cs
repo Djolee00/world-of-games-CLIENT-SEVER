@@ -15,6 +15,8 @@ namespace Domain.Communication
         GameAcceptedOpponent,
         DiceGameStarted,
         DisablePlayer,
-        ChangeScores
+        EnablePlayer,
+        ChangeScores,
+        RollADiceGameFinished
     }
 }

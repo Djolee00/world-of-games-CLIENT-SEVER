@@ -8,11 +8,12 @@ namespace Domain.Model.Roll_a_Dice
 {
     public class DiceGame
     {
-        public const int FinalScore = 20;
+        public static int FinalScore = 20;
 
         public int CurrentScore { get; set; }
         public int Score1 { get; set; }
         public int Score2 { get; set; }
+        public bool Winner{ get; set; }
 
         public bool Winner { get; set; }    
 
