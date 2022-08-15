@@ -12,6 +12,7 @@ namespace Domain.Communication
         RefreshLobby,
         ReceivedGameRequest,
         GameRejectedNotification,
+        GameAcceptedOpponent,
         DiceGameStarted,
         DisablePlayer,
         ChangeScores

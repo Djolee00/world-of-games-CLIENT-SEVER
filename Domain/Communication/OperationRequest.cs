@@ -14,6 +14,7 @@ namespace Domain.Communication
         MakeANewLobbyGame,
         GameRejected,
         CreateGameRequest,
+        BreakThread,
         WelcomeLobby,
         LobbyRefresh,
         GameAccepted

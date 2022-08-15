@@ -19,15 +19,14 @@ namespace ServerProj.Handlers
         DiceService diceService;
         bool playerOneTurn = true;
 
-        public GameHandler(Player p1, Player p2,NetworkStream s1,NetworkStream s2)
+        public GameHandler(Player p1, Player p2)
         {
-            stream1 = s1;
-            stream2 = s2;
             player1 = p1;
             player2 = p2;
+            stream1 = new NetworkStream(player1.Socket);
+            stream2 = new NetworkStream(player2.Socket);
             formatter = new BinaryFormatter();
             diceService = new DiceService();
-
         }
 
         public void GameCommunication()
@@ -42,9 +41,9 @@ namespace ServerProj.Handlers
                     ChangePlayerTurn();
                 }catch(Exception e)
                 {
-
+                    MessageBox.Show("GameCommunication Exception GameHandler");
                 }
-                
+
             }
         }
 
@@ -67,7 +66,7 @@ namespace ServerProj.Handlers
 
         private void DisablePlayer()
         {
-            SendSingleResponse(stream2, new Response("", false, OperationResponse.DisablePlayer));
+            SendSingleResponse(stream2, new Response("biloSta", false, OperationResponse.DisablePlayer));
         }
 
         private void PlayerTurn()
@@ -76,9 +75,12 @@ namespace ServerProj.Handlers
             while(!end)
             {
                 try {
+                    
                     var request = (Request)formatter.Deserialize(stream1);
                     end = diceService.ProcessPlayerTurn(request, playerOneTurn);
-                    SendResponseToAll(new Response(diceService.GetScores(), true, OperationResponse.ChangeScores));
+                    var sr = diceService.GetScores();
+                    SendResponseToAll(new Response(sr, true, OperationResponse.ChangeScores));
+
                 }catch(Exception e)
                 {
                     MessageBox.Show(e.Message);
