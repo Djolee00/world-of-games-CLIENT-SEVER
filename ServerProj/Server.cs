@@ -85,7 +85,7 @@ namespace ServerProj
                     var handler = new ClientHandler(userSocket);
                     //new Thread(handler.ProcessRequests).Start();
                     var task = Task.Run(() => handler.ProcessRequests());
-                    tasks.Add(task);
+                    
                 }
 
 

@@ -41,6 +41,7 @@ namespace ServerProj.Services
                 else
                     diceGame.Score2 += diceGame.CurrentScore;
 
+
                 diceGame.CurrentScore = 0;
 
                 return true;

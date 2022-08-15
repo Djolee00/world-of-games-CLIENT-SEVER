@@ -18,6 +18,7 @@ namespace ServerProj.Handlers
         BinaryFormatter formatter;
         DiceService diceService;
         bool playerOneTurn = true;
+        
 
         public GameHandler(Player p1, Player p2)
         {

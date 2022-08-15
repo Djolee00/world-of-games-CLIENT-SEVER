@@ -123,7 +123,7 @@ namespace UI
             User.User.Instance.SendRequest(OperationRequest.GameAccepted, lblId.Text);
 
             //var diceFrm = new RollADiceForm();
-            //diceFrm.ShowDialog();
+            //diceFrm.Show();
         }
 
         public void PrekiniMeKaoHladnaVoda()
@@ -139,14 +139,15 @@ namespace UI
             var player1 = players.Split(";")[0];
             var player2 = players.Split(";")[1];
             var diceForm = new RollADiceForm();
-            this.Close();
-            //diceForm.GameFormInit(player1,player2);
 
-            diceForm.BeginInvoke(delegate
-            {
-                diceForm.Show();
-            });
+
+            diceForm.GameFormInit(player1,player2);
+            diceForm.Show();
+            diceForm.Refresh();
+            this.Hide();
         }
 
+
+        
     }
 }
