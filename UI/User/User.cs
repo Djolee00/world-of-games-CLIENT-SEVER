@@ -130,25 +130,26 @@ namespace UI.User
                         case OperationResponse.GameRejectedNotification: frmLobby.ReceiveRejectNotification(); break;
                         case OperationResponse.GameAcceptedOpponent: frmLobby.PrekiniMeKaoHladnaVoda(); break;
                         case OperationResponse.DiceGameStarted:frmLobby.StartNewGame(response.Message); break;
-                        //case OperationResponse.DisablePlayer: frmDice.DisableForm();break;
+                        case OperationResponse.DisablePlayer: frmDice.DisableForm(response.Message);break;
+                        case OperationResponse.EnablePlayer: frmDice.EnableForm(response.Message); break;
                         case OperationResponse.ChangeScores:frmDice.ChangeScores(response.Message);break;
+                        case OperationResponse.RollADiceGameFinished: frmDice.DisplayAWinner(response.Message); break;
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ListenAndAcceptForServerMessage Serialization Users");
-                    MessageBox.Show(ex.StackTrace);
+                    MessageBox.Show(ex.Message,"User");
                     isEnd = true;
                     stream.Close();
                     userSocket.Close();
                     MessageBox.Show("Server has been lost");
-                    
                 }
             }
         }
 
         #endregion
+
 
     }
 }

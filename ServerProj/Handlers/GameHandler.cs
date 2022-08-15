@@ -66,7 +66,7 @@ namespace ServerProj.Handlers
 
         private void DisablePlayer()
         {
-            SendSingleResponse(stream2, new Response("biloSta", false, OperationResponse.DisablePlayer));
+            SendSingleResponse(stream2, new Response($"{(playerOneTurn ? "prvi" : "false")}", false, OperationResponse.DisablePlayer));
         }
 
         private void PlayerTurn()
@@ -81,11 +81,25 @@ namespace ServerProj.Handlers
                     var sr = diceService.GetScores();
                     SendResponseToAll(new Response(sr, true, OperationResponse.ChangeScores));
 
+                    CheckWinner();
+
+
                 }catch(Exception e)
                 {
                     MessageBox.Show(e.Message);
                 }
                
+            }
+        }
+
+        private void CheckWinner()
+        {
+            if (diceService.IsGameFinished())
+            {
+                var message = playerOneTurn ? $"{player1.Name};{player1.Id}" : $"{player2.Name};{player2.Id}";
+                // id za zlu ne trebalo
+
+                SendResponseToAll(new Response(message, true, OperationResponse.RollADiceGameFinished));
             }
         }
 
@@ -95,6 +109,9 @@ namespace ServerProj.Handlers
             stream1 = stream2;
             stream2 = temp;
             playerOneTurn = !playerOneTurn;
+
+
+            SendSingleResponse(stream1, new Response($"{(playerOneTurn ? "prvi" : "drugi")}", false, OperationResponse.EnablePlayer));
         }
     }
 }

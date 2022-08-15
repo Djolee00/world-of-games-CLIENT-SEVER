@@ -15,7 +15,6 @@ namespace UI
 {
     public partial class LobbyForm : Form
     {
-
         public LobbyForm()
         {
             InitializeComponent();
@@ -122,13 +121,10 @@ namespace UI
 
             User.User.Instance.SendRequest(OperationRequest.GameAccepted, lblId.Text);
 
-            //var diceFrm = new RollADiceForm();
-            //diceFrm.ShowDialog();
         }
 
         public void PrekiniMeKaoHladnaVoda()
         {
-            MessageBox.Show("Prekini me kao hladna voda");
             User.User.Instance.SendRequest(OperationRequest.BreakThread, "");
         }
 
@@ -138,15 +134,23 @@ namespace UI
         {
             var player1 = players.Split(";")[0];
             var player2 = players.Split(";")[1];
-            var diceForm = new RollADiceForm();
+            
             this.Close();
-            //diceForm.GameFormInit(player1,player2);
 
-            diceForm.BeginInvoke(delegate
+
+            var diceForm = new RollADiceForm(player1, player2);
+            User.User.Instance.frmDice = diceForm;
+
+            Thread _thread = new Thread(() =>
             {
-                diceForm.Show();
+                Application.Run(diceForm);
             });
+            _thread.SetApartmentState(ApartmentState.STA);
+            _thread.Start();
+
+
         }
+
 
     }
 }

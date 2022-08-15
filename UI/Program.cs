@@ -1,3 +1,5 @@
+using UI.Games;
+
 namespace ServerProj
 {
     internal static class Program
