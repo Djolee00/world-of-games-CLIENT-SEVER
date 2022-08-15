@@ -50,6 +50,7 @@ namespace ServerProj
                 }
                 catch (SerializationException)
                 {
+                   
                 }
                 catch (Exception ex)
                 {

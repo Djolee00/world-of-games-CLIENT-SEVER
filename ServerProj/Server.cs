@@ -15,6 +15,7 @@ namespace ServerProj
 
         public static List<Player> onlineUsers = new List<Player>();
         public static List<LobbyGame> availableGames = new List<LobbyGame>();
+        
 
         public static int id = 1;
 
@@ -81,7 +82,8 @@ namespace ServerProj
                    // MessageBox.Show(userSocket.RemoteEndPoint.ToString());
                     var handler = new ClientHandler(userSocket);
                     //new Thread(handler.ProcessRequests).Start();
-                    Task.Run(() => handler.ProcessRequests());
+                    var task = Task.Run(() => handler.ProcessRequests());
+                    tasks.Add(task);
                 }
 
 
