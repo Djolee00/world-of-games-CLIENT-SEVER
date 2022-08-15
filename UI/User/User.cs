@@ -128,15 +128,17 @@ namespace UI.User
                         case OperationResponse.RefreshLobby: frmLobby.RefreshDataGrid(response.Message); break;
                         case OperationResponse.ReceivedGameRequest:frmLobby.ShowGameRequest(response.Message); break;
                         case OperationResponse.GameRejectedNotification: frmLobby.ReceiveRejectNotification(); break;
+                        case OperationResponse.GameAcceptedOpponent: frmLobby.PrekiniMeKaoHladnaVoda(); break;
                         case OperationResponse.DiceGameStarted:frmLobby.StartNewGame(response.Message); break;
-                        case OperationResponse.DisablePlayer: frmDice.DisableForm();break;
+                        //case OperationResponse.DisablePlayer: frmDice.DisableForm();break;
                         case OperationResponse.ChangeScores:frmDice.ChangeScores(response.Message);break;
                     }
 
                 }
-                catch (SerializationException ex)
+                catch (Exception ex)
                 {
-                    
+                    MessageBox.Show("ListenAndAcceptForServerMessage Serialization Users");
+                    MessageBox.Show(ex.StackTrace);
                     isEnd = true;
                     stream.Close();
                     userSocket.Close();

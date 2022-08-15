@@ -66,6 +66,8 @@ namespace ServerProj
             }
             catch (Exception)
             {
+                MessageBox.Show("StopTheServer Server");
+
                 return false;
             }
         }
@@ -90,6 +92,7 @@ namespace ServerProj
             }
             catch(SocketException ex)
             {
+                MessageBox.Show("ListenForConnections SocketException Server");
 
             }
             catch (Exception ex)

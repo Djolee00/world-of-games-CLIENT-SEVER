@@ -31,7 +31,9 @@ namespace UI
         private void LobbyForm_Load(object sender, EventArgs e)
         {
             User.User.Instance.frmLobby = this;
+
             User.User.Instance.SendRequest(OperationRequest.WelcomeLobby, "");
+
             panel1.Visible = false;
         }
 
@@ -96,7 +98,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("OVDE");
+                MessageBox.Show("RefreshDataGrid");
             }
         }
 
@@ -124,6 +126,12 @@ namespace UI
             //diceFrm.ShowDialog();
         }
 
+        public void PrekiniMeKaoHladnaVoda()
+        {
+            MessageBox.Show("Prekini me kao hladna voda");
+            User.User.Instance.SendRequest(OperationRequest.BreakThread, "");
+        }
+
         #endregion
 
         public void StartNewGame(string players)
@@ -132,8 +140,12 @@ namespace UI
             var player2 = players.Split(";")[1];
             var diceForm = new RollADiceForm();
             this.Close();
-            diceForm.GameFormInit(player1,player2);
-            diceForm.ShowDialog();
+            //diceForm.GameFormInit(player1,player2);
+
+            diceForm.BeginInvoke(delegate
+            {
+                diceForm.Show();
+            });
         }
 
     }

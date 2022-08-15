@@ -43,9 +43,8 @@ namespace UI.Games
 
         public void DisableForm()
         {
-            button1.Enabled = button2.Enabled = false;
-            button1.BackColor = Color.Red;
-
+            //button1.Enabled = button2.Enabled = false;
+            //button1.BackColor = Color.Red;
         }
 
         public void ChangeScores(string message)

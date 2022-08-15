@@ -18,8 +18,10 @@ namespace ServerProj
         public Socket socket;
         NetworkStream stream;
         BinaryFormatter formatter = new BinaryFormatter();
-
+        bool isEnd = false;
         LobbyService service;
+
+        List<Task> tasks = new List<Task>();
 
         public ClientHandler(Socket socket)
         {
@@ -32,29 +34,31 @@ namespace ServerProj
         #region Handling requests
         public void ProcessRequests()
         {
-
-            bool isEnd = false;
             while (!isEnd)
             {
                 try
                 {
                     var request = (Request)formatter.Deserialize(stream);
                     ProcessSingleRequest(request);
+                    if (request.Operation == OperationRequest.GameAccepted) break;
+                    if (request.Operation == OperationRequest.BreakThread) break;
                 }
                 catch(SocketException)
                 {
+                    MessageBox.Show("ProcessRequest SocketException ClientHandler");
                     socket.Close();
                 }
                 catch (IOException)
                 {
+                    MessageBox.Show("ProcessRequest IOException ClientHandler");
                 }
                 catch (SerializationException)
                 {
-                   
+                    MessageBox.Show("ProcessRequest SerializationException ClientHandler");
                 }
                 catch (Exception ex)
                 {
-                    
+                    MessageBox.Show("ProcessRequest Exception ClientHandler");
                 }
                 finally
                 {
@@ -78,12 +82,14 @@ namespace ServerProj
                     case OperationRequest.GameAccepted: GameAccepted(request.Body); break;
                 }
 
+
             }
             catch(Exception ex)
             {
                 //MessageBox.Show(ex.Message);
                 //throw;
-               socket.Close();
+                MessageBox.Show("ProcessingSingleRequest Exception ClientHandler");
+                socket.Close();
                stream.Close();
                
             }
@@ -157,10 +163,12 @@ namespace ServerProj
             var player = service.LocalPlayer;
             var opponentPlayer = service.FindAPlayerById(opponentId);
 
-            var gameHandler = new GameHandler(player, opponentPlayer,stream,new NetworkStream(opponentPlayer.Socket));
-            
-            
-            Task.Run(() => gameHandler.GameCommunication());
+            SendSingleResponse(new NetworkStream(opponentPlayer.Socket), new Response("", true, OperationResponse.GameAcceptedOpponent));
+
+            var gameHandler = new GameHandler(player, opponentPlayer);
+
+
+            tasks.Add(Task.Run(() => gameHandler.GameCommunication()));
         }
         #endregion
     }
