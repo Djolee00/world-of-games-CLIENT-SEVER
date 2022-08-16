@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RollADiceForm));
             this.panelGame = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelNotification = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelCurrentScore = new System.Windows.Forms.Panel();
@@ -43,6 +47,7 @@
             this.labelPlayer2Name = new System.Windows.Forms.Label();
             this.labelPlayer2Score = new System.Windows.Forms.Label();
             this.panelGame.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelCurrentScore.SuspendLayout();
             this.panelPlayer1.SuspendLayout();
@@ -53,6 +58,7 @@
             // 
             this.panelGame.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelGame.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelGame.Controls.Add(this.panel1);
             this.panelGame.Controls.Add(this.button1);
             this.panelGame.Controls.Add(this.pictureBox1);
             this.panelGame.Controls.Add(this.panelCurrentScore);
@@ -63,6 +69,52 @@
             this.panelGame.Name = "panelGame";
             this.panelGame.Size = new System.Drawing.Size(778, 466);
             this.panelGame.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.labelNotification);
+            this.panel1.Location = new System.Drawing.Point(255, 108);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(281, 221);
+            this.panel1.TabIndex = 3;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(220)))), ((int)(((byte)(222)))));
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Location = new System.Drawing.Point(96, 175);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(77, 36);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "Start";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(57, 142);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(167, 25);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Go to next game!";
+            // 
+            // labelNotification
+            // 
+            this.labelNotification.ForeColor = System.Drawing.Color.Black;
+            this.labelNotification.Location = new System.Drawing.Point(45, 13);
+            this.labelNotification.Name = "labelNotification";
+            this.labelNotification.Size = new System.Drawing.Size(198, 114);
+            this.labelNotification.TabIndex = 0;
+            this.labelNotification.Text = "label1";
+            this.labelNotification.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // button1
             // 
@@ -213,6 +265,8 @@
             this.Text = "RollADiceForm";
             this.Load += new System.EventHandler(this.RollADiceForm_Load);
             this.panelGame.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelCurrentScore.ResumeLayout(false);
             this.panelCurrentScore.PerformLayout();
@@ -239,5 +293,9 @@
         private Panel panelPlayer1;
         private Label labelPlayer1Score;
         private Label labelPlayer1Name;
+        private Panel panel1;
+        private Label labelNotification;
+        private Label label1;
+        private Button button3;
     }
 }

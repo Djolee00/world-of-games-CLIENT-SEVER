@@ -145,10 +145,9 @@ namespace UI
             {
                 Application.Run(diceForm);
             });
+
             _thread.SetApartmentState(ApartmentState.STA);
             _thread.Start();
-
-
         }
 
 

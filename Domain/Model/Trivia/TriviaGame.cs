@@ -8,5 +8,6 @@ namespace Domain.Model.Trivia
 {
     public class TriviaGame
     {
+
     }
 }

@@ -22,7 +22,7 @@ namespace UI.User
 
         public LobbyForm frmLobby;
         public RollADiceForm frmDice;
-
+        public TriviaGameForm frmTrivia;
 
         private User() { }
         private static User instance;
@@ -134,8 +134,10 @@ namespace UI.User
                         case OperationResponse.EnablePlayer: frmDice.EnableForm(response.Message); break;
                         case OperationResponse.ChangeScores:frmDice.ChangeScores(response.Message);break;
                         case OperationResponse.RollADiceGameFinished: frmDice.DisplayAWinner(response.Message); break;
+                        case OperationResponse.TriviaGameStart: frmTrivia.InitGameScene();  break;
+                        case OperationResponse.QuestionReceived: frmTrivia.ShowQuestion(response.Message); break;
+                        case OperationResponse.QuestionAnswered: frmTrivia.MsgBox(response.Message); break;
                     }
-
                 }
                 catch (Exception ex)
                 {
