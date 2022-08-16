@@ -38,6 +38,8 @@ namespace UI.Games
             images[3] = Properties.Resources.dice4;
             images[4] = Properties.Resources.dice5;
             images[5] = Properties.Resources.dice6;
+
+            panel1.Visible = false;
         }
 
         private void ChangeColorOnTurnForActivePlayer()
@@ -103,7 +105,19 @@ namespace UI.Games
 
         public void DisplayAWinner(string winner)
         {
-            MessageBox.Show($"Player {winner.Split(';')[0]} is a winner.");
+            panel1.Visible = true;
+
+            labelNotification.Text = winner;
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var triviaForm = new TriviaGameForm();
+            this.Hide();
+            triviaForm.Show();
+
+            User.User.Instance.SendRequest(OperationRequest.TriviaGameStart, "");
+        }
+
     }
 }

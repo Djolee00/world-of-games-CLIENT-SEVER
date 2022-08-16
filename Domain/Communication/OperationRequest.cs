@@ -17,6 +17,7 @@ namespace Domain.Communication
         BreakThread,
         WelcomeLobby,
         LobbyRefresh,
-        GameAccepted
+        GameAccepted,
+        TriviaGameStart
     }
 }

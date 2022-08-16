@@ -17,6 +17,9 @@ namespace Domain.Communication
         DisablePlayer,
         EnablePlayer,
         ChangeScores,
-        RollADiceGameFinished
+        RollADiceGameFinished,
+        TriviaGameStart,
+        QuestionReceived,
+        QuestionAnswered
     }
 }
