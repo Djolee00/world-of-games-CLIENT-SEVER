@@ -15,7 +15,7 @@ namespace Domain.Model.Roll_a_Dice
         public int Score2 { get; set; }
         public bool Winner{ get; set; }
 
-        public bool Winner { get; set; }    
+       
 
         public DiceGame(int currentScore, int score1, int score2)
         {
