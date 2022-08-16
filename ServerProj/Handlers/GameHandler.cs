@@ -81,6 +81,10 @@ namespace ServerProj.Handlers
         {
             triviaService = new TriviaService();
 
+            Task<string> playerOneClick = null;
+            Task<string> playerTwoClick = null;
+            
+
             bool isEnd = false;
             while (!isEnd)
             {
@@ -89,17 +93,27 @@ namespace ServerProj.Handlers
                     var question = triviaService.GetAQueston();
                     SendResponseToAll(new Response(question, true, OperationResponse.QuestionReceived));
 
+                    
+                    if(playerOneClick == null || playerOneClick.IsCompleted)
+                    {
+                        playerOneClick = Task.Run(() => GetAUserClick(stream1));
+                    }
 
-                    var playerOneClick = Task.Run(() => GetAUserClick(stream1));
-                    var playerTwoClick = Task.Run(() => GetAUserClick(stream2));
+
+                    if (playerTwoClick == null || playerTwoClick.IsCompleted)
+                    {
+                        playerTwoClick = Task.Run(() => GetAUserClick(stream2));
+                    }
+
 
                     var result = Task.WaitAny(playerOneClick, playerTwoClick);
 
-
+                    
 
                     if(result == 0)
                     {
                         SendSingleResponse(stream1, new Response(playerOneClick.Result.ToString(), true, OperationResponse.QuestionAnswered));
+                        
                         
                     }
                     else
