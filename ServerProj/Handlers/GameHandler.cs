@@ -83,6 +83,7 @@ namespace ServerProj.Handlers
 
             Task<string> playerOneClick = null;
             Task<string> playerTwoClick = null;
+            bool secondAnswer = false;
             
 
             bool isEnd = false;
@@ -90,9 +91,12 @@ namespace ServerProj.Handlers
             {
                 try
                 {
-                    var question = triviaService.GetAQueston();
+                    var question = triviaService.GetAQuestion();
+                    var correctAnswer = triviaService.GetAAnswer();
+
                     SendResponseToAll(new Response(question, true, OperationResponse.QuestionReceived));
 
+                    var responseAnswer = new Response();
                     
                     if(playerOneClick == null || playerOneClick.IsCompleted)
                     {
@@ -105,22 +109,85 @@ namespace ServerProj.Handlers
                         playerTwoClick = Task.Run(() => GetAUserClick(stream2));
                     }
 
-
-                    var result = Task.WaitAny(playerOneClick, playerTwoClick);
-
-                    
-
-                    if(result == 0)
+                    var timer = Task.Run(async () =>
                     {
-                        SendSingleResponse(stream1, new Response(playerOneClick.Result.ToString(), true, OperationResponse.QuestionAnswered));
-                        
-                        
+                        for (int i = 10; i >= 0; i--)
+                        {
+                            await Task.Delay(1000);
+                        }
+                    });
+
+                    var result = Task.WaitAny(playerOneClick, playerTwoClick, timer);
+
+                    if (result == 2) continue;
+
+                    var givenAnswer = (result == 0 ? playerOneClick.Result.ToString() : playerTwoClick.Result.ToString());
+                    var isAnwerCorrect = correctAnswer == givenAnswer;
+
+                    var responseMessage = "";
+
+
+                    if (isAnwerCorrect)
+                    {
+                        if(result == 0)
+                            player1.Score += 5;
+                        else
+                            player2.Score += 5;
+
+                        responseMessage = $"{player1.Name};{player1.Score};{player2.Name};{player2.Score};{givenAnswer}";
+                        SendResponseToAll(new Response(responseMessage, true, OperationResponse.CorrectAnwer));
                     }
                     else
                     {
-                        SendSingleResponse(stream2, new Response(playerTwoClick.Result.ToString(), true, OperationResponse.QuestionAnswered));
-                        
+                        bool isFirstPlayer = false;
+
+                        if (result == 0)
+                        {
+                            player1.Score -= 3;
+                            isFirstPlayer = true;
+                            SendSingleResponse(stream1, new Response("", true, OperationResponse.DisablePlayerAfterFalseAnswer));
+                        }
+                        else
+                        {
+                            player2.Score -= 3;
+                            SendSingleResponse(stream2, new Response("", true, OperationResponse.DisablePlayerAfterFalseAnswer));
+                        }
+
+                        responseMessage = $"{player1.Name};{player1.Score};{player2.Name};{player2.Score};{givenAnswer}";
+
+                        SendResponseToAll(new Response(responseMessage, true, OperationResponse.FalseAnswer));
+
+                        Task.WaitAll(playerOneClick, playerTwoClick);
+
+                        var givenSecondAnswer = "";
+
+                        if (isFirstPlayer)
+                        {
+                            givenSecondAnswer = playerTwoClick.Result.ToString();
+                            if (correctAnswer == givenSecondAnswer) 
+                                player2.Score += 5;
+                            else
+                                player2.Score -= 3;
+                        }
+                        else
+                        {
+                            givenSecondAnswer = playerOneClick.Result.ToString();
+                            if (correctAnswer == givenSecondAnswer)
+                                player1.Score += 5;
+                            else
+                                player1.Score -= 3;
+                        }
+
+
+                        responseMessage = $"{player1.Name};{player1.Score};{player2.Name};{player2.Score};{givenSecondAnswer}";
+
+                        if (givenSecondAnswer == correctAnswer)
+                            SendResponseToAll(new Response(responseMessage, true, OperationResponse.CorrectAnwer));
+                        else
+                            SendResponseToAll(new Response(responseMessage, true, OperationResponse.FalseAnswer));
+
                     }
+
                 }
                 catch(Exception ex)
                 {

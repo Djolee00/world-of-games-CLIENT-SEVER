@@ -20,6 +20,9 @@ namespace Domain.Communication
         RollADiceGameFinished,
         TriviaGameStart,
         QuestionReceived,
-        QuestionAnswered
+        QuestionAnswered,
+        CorrectAnwer,
+        FalseAnswer,
+        DisablePlayerAfterFalseAnswer
     }
 }

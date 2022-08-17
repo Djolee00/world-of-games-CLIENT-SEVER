@@ -1,4 +1,5 @@
 ﻿using Domain.Model.Trivia;
+using ServerProj.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,31 @@ namespace ServerProj.Services
     {
         Question[] questions;
         int questionNumber = 0;
+        Question question = null;
         public TriviaService()
         {
             questions = new Question[10];
-            Answer ans = new Answer("a", "b", "c", "d");
-            for(int i = 0; i < questions.Length;i++)
-                questions[i] = new Question(i, i+".pitanje", ans);
+            questions = MockQuestions.questions;
             // database
         }
 
-        public string GetAQueston()
+        public string GetAQuestion()
         {
             var question = questions[questionNumber++];
+            this.question = question;
             return SplitQuestionIntoString(question);
+        }
+
+
+        public string GetAAnswer()
+        {
+            var answers = new List<string>();
+            answers.Add(question.answer.Answer1);
+            answers.Add(question.answer.Answer2);
+            answers.Add(question.answer.Answer3);
+            answers.Add(question.answer.Answer4);
+
+            return answers.FirstOrDefault(a => a.Contains(';')).TrimEnd(';');
         }
 
         private string SplitQuestionIntoString(Question question) =>

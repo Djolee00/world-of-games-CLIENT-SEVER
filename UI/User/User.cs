@@ -137,6 +137,9 @@ namespace UI.User
                         case OperationResponse.TriviaGameStart: frmTrivia.InitGameScene();  break;
                         case OperationResponse.QuestionReceived: frmTrivia.ShowQuestion(response.Message); break;
                         case OperationResponse.QuestionAnswered: frmTrivia.MsgBox(response.Message); break;
+                        case OperationResponse.CorrectAnwer: frmTrivia.CorrectAnswer(response.Message);  break;
+                        case OperationResponse.FalseAnswer: frmTrivia.FalseAnswer(response.Message); break;
+                        case OperationResponse.DisablePlayerAfterFalseAnswer: frmTrivia.DisablePlayerAfterFalse(); break;
                     }
                 }
                 catch (Exception ex)

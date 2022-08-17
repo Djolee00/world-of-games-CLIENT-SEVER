@@ -37,12 +37,14 @@
             this.btnD = new System.Windows.Forms.Button();
             this.pnlWaiting = new System.Windows.Forms.Panel();
             this.lblText = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlWaiting.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.labelQuestion);
             this.panel1.Location = new System.Drawing.Point(110, 27);
             this.panel1.Name = "panel1";
@@ -54,7 +56,7 @@
             this.labelQuestion.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelQuestion.Location = new System.Drawing.Point(32, 19);
             this.labelQuestion.Name = "labelQuestion";
-            this.labelQuestion.Size = new System.Drawing.Size(558, 192);
+            this.labelQuestion.Size = new System.Drawing.Size(558, 162);
             this.labelQuestion.TabIndex = 0;
             this.labelQuestion.Text = "Trivia question";
             this.labelQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -73,7 +75,6 @@
             this.btnA.Name = "btnA";
             this.btnA.Size = new System.Drawing.Size(240, 68);
             this.btnA.TabIndex = 9;
-            this.btnA.Text = "Answer A";
             this.btnA.UseVisualStyleBackColor = false;
             this.btnA.Click += new System.EventHandler(this.btnA_Click);
             // 
@@ -91,8 +92,8 @@
             this.btnB.Name = "btnB";
             this.btnB.Size = new System.Drawing.Size(240, 68);
             this.btnB.TabIndex = 10;
-            this.btnB.Text = "Answer B";
             this.btnB.UseVisualStyleBackColor = false;
+            this.btnB.Click += new System.EventHandler(this.btnB_Click);
             // 
             // btnC
             // 
@@ -108,8 +109,8 @@
             this.btnC.Name = "btnC";
             this.btnC.Size = new System.Drawing.Size(240, 68);
             this.btnC.TabIndex = 11;
-            this.btnC.Text = "Answer C";
             this.btnC.UseVisualStyleBackColor = false;
+            this.btnC.Click += new System.EventHandler(this.btnC_Click);
             // 
             // btnD
             // 
@@ -125,14 +126,14 @@
             this.btnD.Name = "btnD";
             this.btnD.Size = new System.Drawing.Size(240, 68);
             this.btnD.TabIndex = 12;
-            this.btnD.Text = "Answer D";
             this.btnD.UseVisualStyleBackColor = false;
+            this.btnD.Click += new System.EventHandler(this.btnD_Click);
             // 
             // pnlWaiting
             // 
             this.pnlWaiting.BackColor = System.Drawing.Color.White;
             this.pnlWaiting.Controls.Add(this.lblText);
-            this.pnlWaiting.Location = new System.Drawing.Point(200, 144);
+            this.pnlWaiting.Location = new System.Drawing.Point(212, 125);
             this.pnlWaiting.Name = "pnlWaiting";
             this.pnlWaiting.Size = new System.Drawing.Size(447, 222);
             this.pnlWaiting.TabIndex = 1;
@@ -147,6 +148,17 @@
             this.lblText.Size = new System.Drawing.Size(350, 41);
             this.lblText.TabIndex = 0;
             this.lblText.Text = "Waiting for opponent...";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.DarkGreen;
+            this.label1.Location = new System.Drawing.Point(269, 194);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 30);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "label1";
             // 
             // TriviaGameForm
             // 
@@ -167,6 +179,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TriviaGameForm";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.pnlWaiting.ResumeLayout(false);
             this.pnlWaiting.PerformLayout();
             this.ResumeLayout(false);
@@ -183,5 +196,6 @@
         private Label labelQuestion;
         private Panel pnlWaiting;
         private Label lblText;
+        private Label label1;
     }
 }
