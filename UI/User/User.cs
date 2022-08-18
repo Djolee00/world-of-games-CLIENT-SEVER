@@ -48,7 +48,7 @@ namespace UI.User
 
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Failed to connect to the server.");
                 return false;
@@ -83,9 +83,9 @@ namespace UI.User
         public void SendRequest(OperationRequest operation, string obj)
         {
             var request = CreateRequest(operation, obj);
-            
+
             formatter.Serialize(stream, request);
-            
+
         }
 
         public Response SendRequestGetResponse(OperationRequest operation, string obj)
@@ -93,8 +93,8 @@ namespace UI.User
             try
             {
                 SendRequest(operation, obj);
-        
-                var response =  (Response)formatter.Deserialize(stream);
+
+                var response = (Response)formatter.Deserialize(stream);
                 return response;
             }
             catch (Exception ex)
@@ -126,25 +126,29 @@ namespace UI.User
                     switch (response.Operation)
                     {
                         case OperationResponse.RefreshLobby: frmLobby.RefreshDataGrid(response.Message); break;
-                        case OperationResponse.ReceivedGameRequest:frmLobby.ShowGameRequest(response.Message); break;
+                        case OperationResponse.ReceivedGameRequest: frmLobby.ShowGameRequest(response.Message); break;
                         case OperationResponse.GameRejectedNotification: frmLobby.ReceiveRejectNotification(); break;
                         case OperationResponse.GameAcceptedOpponent: frmLobby.PrekiniMeKaoHladnaVoda(); break;
-                        case OperationResponse.DiceGameStarted:frmLobby.StartNewGame(response.Message); break;
-                        case OperationResponse.DisablePlayer: frmDice.DisableForm(response.Message);break;
+                        case OperationResponse.DiceGameStarted: frmLobby.StartNewGame(response.Message); break;
+                        case OperationResponse.DisablePlayer: frmDice.DisableForm(response.Message); break;
                         case OperationResponse.EnablePlayer: frmDice.EnableForm(response.Message); break;
-                        case OperationResponse.ChangeScores:frmDice.ChangeScores(response.Message);break;
+                        case OperationResponse.ChangeScores: frmDice.ChangeScores(response.Message); break;
                         case OperationResponse.RollADiceGameFinished: frmDice.DisplayAWinner(response.Message); break;
-                        case OperationResponse.TriviaGameStart: frmTrivia.InitGameScene();  break;
-                        case OperationResponse.QuestionReceived: frmTrivia.ShowQuestion(response.Message); break;
+                        case OperationResponse.TriviaGameStart: frmTrivia.InitGameScene(); break;
+                         case   OperationResponse.QuestionReceived:
+                            ShowTimeLeft();
+                            frmTrivia.ShowQuestion(response.Message); break;
                         case OperationResponse.QuestionAnswered: frmTrivia.MsgBox(response.Message); break;
-                        case OperationResponse.CorrectAnwer: frmTrivia.CorrectAnswer(response.Message);  break;
+                        case OperationResponse.CorrectAnwer:
+                            ts.Cancel();
+                            frmTrivia.CorrectAnswer(response.Message); break;
                         case OperationResponse.FalseAnswer: frmTrivia.FalseAnswer(response.Message); break;
                         case OperationResponse.DisablePlayerAfterFalseAnswer: frmTrivia.DisablePlayerAfterFalse(); break;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message,"User");
+                    MessageBox.Show(ex.Message, "User");
                     isEnd = true;
                     stream.Close();
                     userSocket.Close();
@@ -153,8 +157,44 @@ namespace UI.User
             }
         }
 
-        #endregion
 
 
+        CancellationTokenSource ts;
+        CancellationToken ct;
+
+
+
+        private void ShowTimeLeft()
+        {
+
+            if (ts == null || ts.IsCancellationRequested)
+            {
+                // This is the simplest form to initialize as a new object initially or after cancelling task everytime
+                ts = new CancellationTokenSource();
+            }
+
+            ct = ts.Token;
+
+            var task = Task.Run(async () =>
+            {
+                for (int i = 10; i >= 0; i--)
+                {
+                    if (ct.IsCancellationRequested)
+                    {
+                        ts = new CancellationTokenSource();
+                        break;
+                    }
+
+                    frmTrivia.ChangeTimerOnScreen(i);
+                    await Task.Delay(1000);
+                }
+            }, ct);
+
+
+        
+        }
+    
     }
+
+    #endregion
 }

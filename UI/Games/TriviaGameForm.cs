@@ -33,7 +33,7 @@ namespace UI.Games
         public void ShowQuestion(string question)
         {
             RefreshScene();
-            ShowTimeLeft();
+          //  ShowTimeLeft();
 
             var questionInfo = question.Split(';');
             questionInfo = questionInfo.Where(x => !string.IsNullOrEmpty(x)).ToArray();
@@ -122,6 +122,11 @@ namespace UI.Games
             {
                 button.Enabled = false;
             }
+        }
+
+        internal void ChangeTimerOnScreen(int i)
+        {
+            label1.Text = i.ToString();
         }
     }
 }
