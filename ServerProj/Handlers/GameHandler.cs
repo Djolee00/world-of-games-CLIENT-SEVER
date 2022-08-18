@@ -77,13 +77,12 @@ namespace ServerProj.Handlers
                 SendResponseToAll(new Response("",true,OperationResponse.TriviaGameStart));
         }
 
-        private void GameTriviaHandler()
+        private async void GameTriviaHandler()
         {
             triviaService = new TriviaService();
 
             Task<string> playerOneClick = null;
             Task<string> playerTwoClick = null;
-            bool secondAnswer = false;
             
 
             bool isEnd = false;
@@ -109,17 +108,27 @@ namespace ServerProj.Handlers
                         playerTwoClick = Task.Run(() => GetAUserClick(stream2));
                     }
 
+                    CancellationTokenSource ts = new CancellationTokenSource();
+                    var ct = ts.Token;
+
                     var timer = Task.Run(async () =>
                     {
                         for (int i = 10; i >= 0; i--)
                         {
+                            if (ct.IsCancellationRequested)
+                                break;
+
+                            SendResponseToAll(new Response(i.ToString(), true, OperationResponse.TimerOperation));
                             await Task.Delay(1000);
                         }
-                    });
+                    },ct);
 
-                    var result = Task.WaitAny(playerOneClick, playerTwoClick, timer);
+
+                    var result = Task.WaitAny(playerOneClick, playerTwoClick,timer);
 
                     if (result == 2) continue;
+
+                    ts.Cancel();
 
                     var givenAnswer = (result == 0 ? playerOneClick.Result.ToString() : playerTwoClick.Result.ToString());
                     var isAnwerCorrect = correctAnswer == givenAnswer;
@@ -157,7 +166,32 @@ namespace ServerProj.Handlers
 
                         SendResponseToAll(new Response(responseMessage, true, OperationResponse.FalseAnswer));
 
-                        Task.WaitAll(playerOneClick, playerTwoClick);
+
+                        CancellationTokenSource ts2 = new CancellationTokenSource();
+                        var ct2 = ts2.Token;
+
+                        var timerSecond = Task.Run(async () =>
+                        {
+                            for (int i = 5; i >= 0; i--)
+                            {
+                                if (ct2.IsCancellationRequested)
+                                    break;
+
+                                SendResponseToAll(new Response(i.ToString(), true, OperationResponse.TimerOperation));
+                                await Task.Delay(1000);
+                            }
+                        }, ct2);
+
+                        int result2;
+
+                        if (result == 0)
+                          result2 =  Task.WaitAny(timerSecond, playerTwoClick);
+                        else
+                           result2 =  Task.WaitAny(timerSecond, playerOneClick);
+
+                        if (result2 == 0) continue;
+
+                        ts2.Cancel();
 
                         var givenSecondAnswer = "";
 
@@ -188,6 +222,7 @@ namespace ServerProj.Handlers
 
                     }
 
+
                 }
                 catch(Exception ex)
                 {
@@ -202,7 +237,6 @@ namespace ServerProj.Handlers
 
             return request.Body;
         }
-
 
         #region Responses
 

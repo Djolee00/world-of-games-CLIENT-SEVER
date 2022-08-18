@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Communication
 {
+    [Serializable]
     public enum OperationResponse
     {
         None,
@@ -20,9 +21,9 @@ namespace Domain.Communication
         RollADiceGameFinished,
         TriviaGameStart,
         QuestionReceived,
-        QuestionAnswered,
         CorrectAnwer,
         FalseAnswer,
-        DisablePlayerAfterFalseAnswer
+        DisablePlayerAfterFalseAnswer,
+        TimerOperation
     }
 }

@@ -113,7 +113,7 @@ namespace UI.User
             //new Thread(ListenAndAcceptForServerMessage).Start();
         }
 
-        private void ListenAndAcceptForServerMessage()
+        private async void ListenAndAcceptForServerMessage()
         {
 
             bool isEnd = false;
@@ -122,7 +122,6 @@ namespace UI.User
                 try
                 {
                     var response = (Response)formatter.Deserialize(stream);
-
                     switch (response.Operation)
                     {
                         case OperationResponse.RefreshLobby: frmLobby.RefreshDataGrid(response.Message); break;
@@ -134,16 +133,12 @@ namespace UI.User
                         case OperationResponse.EnablePlayer: frmDice.EnableForm(response.Message); break;
                         case OperationResponse.ChangeScores: frmDice.ChangeScores(response.Message); break;
                         case OperationResponse.RollADiceGameFinished: frmDice.DisplayAWinner(response.Message); break;
-                        case OperationResponse.TriviaGameStart: frmTrivia.InitGameScene(); break;
-                         case   OperationResponse.QuestionReceived:
-                            ShowTimeLeft();
-                            frmTrivia.ShowQuestion(response.Message); break;
-                        case OperationResponse.QuestionAnswered: frmTrivia.MsgBox(response.Message); break;
-                        case OperationResponse.CorrectAnwer:
-                            ts.Cancel();
-                            frmTrivia.CorrectAnswer(response.Message); break;
+                        case OperationResponse.TriviaGameStart: frmTrivia.InitGameScene();  break;
+                        case OperationResponse.QuestionReceived: frmTrivia.ShowQuestion(response.Message); break;
+                        case OperationResponse.CorrectAnwer: frmTrivia.CorrectAnswer(response.Message);  break;
                         case OperationResponse.FalseAnswer: frmTrivia.FalseAnswer(response.Message); break;
                         case OperationResponse.DisablePlayerAfterFalseAnswer: frmTrivia.DisablePlayerAfterFalse(); break;
+                        case OperationResponse.TimerOperation: frmTrivia.ChangeTimerOnScreen(response.Message); break;
                     }
                 }
                 catch (Exception ex)

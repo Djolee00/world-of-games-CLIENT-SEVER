@@ -33,7 +33,6 @@ namespace UI.Games
         public void ShowQuestion(string question)
         {
             RefreshScene();
-          //  ShowTimeLeft();
 
             var questionInfo = question.Split(';');
             questionInfo = questionInfo.Where(x => !string.IsNullOrEmpty(x)).ToArray();
@@ -47,16 +46,10 @@ namespace UI.Games
 
         }
 
-        private void ShowTimeLeft()
+        public void ChangeTimerOnScreen(string i)
         {
-            Task.Run(async () =>
-            {
-                for (int i = 10; i >= 0; i--)
-                {
-                    label1.Text = i.ToString();
-                    await Task.Delay(1000);
-                }
-            });
+            label1.Text = i;
+
         }
 
         private void RefreshScene()
