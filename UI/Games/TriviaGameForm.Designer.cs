@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TriviaGameForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelQuestion = new System.Windows.Forms.Label();
             this.btnA = new System.Windows.Forms.Button();
             this.btnB = new System.Windows.Forms.Button();
@@ -37,7 +38,6 @@
             this.btnD = new System.Windows.Forms.Button();
             this.pnlWaiting = new System.Windows.Forms.Panel();
             this.lblText = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlWaiting.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +50,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(622, 229);
             this.panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.DarkGreen;
+            this.label1.Location = new System.Drawing.Point(269, 194);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 30);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "10";
             // 
             // labelQuestion
             // 
@@ -148,17 +159,6 @@
             this.lblText.Size = new System.Drawing.Size(350, 41);
             this.lblText.TabIndex = 0;
             this.lblText.Text = "Waiting for opponent...";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label1.Location = new System.Drawing.Point(269, 194);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 30);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
             // 
             // TriviaGameForm
             // 
