@@ -16,6 +16,7 @@ namespace ServerProj
         {
             InitializeComponent();
             Server.Instance.CheckServerState();
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace ServerProj
         private void ServerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Server.Instance.StopTheServer();
+            
         }
 
         private void ServerForm_Load(object sender, EventArgs e)
@@ -42,6 +44,7 @@ namespace ServerProj
         private void btnPlay_Click(object sender, EventArgs e)
         {
             Server.Instance.StopTheServer();
+            
         }
     }
 }

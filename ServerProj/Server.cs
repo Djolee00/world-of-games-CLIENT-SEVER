@@ -15,7 +15,8 @@ namespace ServerProj
 
         public static List<Player> onlineUsers = new List<Player>();
         public static List<LobbyGame> availableGames = new List<LobbyGame>();
-        
+        private List<ClientHandler> clientHandlers = new List<ClientHandler>();
+     
 
         public static int id = 1;
 
@@ -60,7 +61,11 @@ namespace ServerProj
                 foreach (var player in onlineUsers)
                     player.Socket.Close(); // promeniti posle u close socket metodu TO DO
 
+                foreach(var clientHandler in clientHandlers)
+                    clientHandler.StopClientHandler();
+
                 socketListener.Close();
+                
 
                 return true;
             }
@@ -83,21 +88,17 @@ namespace ServerProj
 
                    // MessageBox.Show(userSocket.RemoteEndPoint.ToString());
                     var handler = new ClientHandler(userSocket);
+                    clientHandlers.Add(handler);
                     //new Thread(handler.ProcessRequests).Start();
                     var task = Task.Run(() => handler.ProcessRequests());
                     
                 }
-
-
-            }
-            catch(SocketException ex)
-            {
-                MessageBox.Show("ListenForConnections SocketException Server");
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Server has been lost");
+                StopTheServer();
+                Application.Exit();
             }
         }
 

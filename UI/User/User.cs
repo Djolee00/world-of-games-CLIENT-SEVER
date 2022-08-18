@@ -143,52 +143,26 @@ namespace UI.User
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "User");
+                    MessageBox.Show("The connection to the server has been lost. Try reconnecting");
                     isEnd = true;
                     stream.Close();
                     userSocket.Close();
-                    MessageBox.Show("Server has been lost");
+                    Application.Exit();
+
                 }
+
             }
+            
+
         }
 
 
 
-        CancellationTokenSource ts;
-        CancellationToken ct;
 
-
-
-        private void ShowTimeLeft()
-        {
-
-            if (ts == null || ts.IsCancellationRequested)
-            {
-                // This is the simplest form to initialize as a new object initially or after cancelling task everytime
-                ts = new CancellationTokenSource();
-            }
-
-            ct = ts.Token;
-
-            var task = Task.Run(async () =>
-            {
-                for (int i = 10; i >= 0; i--)
-                {
-                    if (ct.IsCancellationRequested)
-                    {
-                        ts = new CancellationTokenSource();
-                        break;
-                    }
-
-                    frmTrivia.ChangeTimerOnScreen(i);
-                    await Task.Delay(1000);
-                }
-            }, ct);
 
 
         
-        }
-    
+        
     }
 
     #endregion

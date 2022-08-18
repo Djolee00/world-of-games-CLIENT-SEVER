@@ -43,26 +43,10 @@ namespace ServerProj
                     if (request.Operation == OperationRequest.GameAccepted) break;
                     if (request.Operation == OperationRequest.BreakThread) break;
                 }
-                catch(SocketException)
-                {
-                    MessageBox.Show("ProcessRequest SocketException ClientHandler");
-                    socket.Close();
-                }
-                catch (IOException)
-                {
-                    MessageBox.Show("ProcessRequest IOException ClientHandler");
-                }
-                catch (SerializationException)
-                {
-                    MessageBox.Show("ProcessRequest SerializationException ClientHandler");
-                }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ProcessRequest Exception ClientHandler");
-                }
-                finally
-                {
-
+                   //This thread will stop from Server class when server is closed
+                   isEnd = true;
                 }
             }
         }
@@ -170,6 +154,17 @@ namespace ServerProj
 
             tasks.Add(Task.Run(() => gameHandler.GameCommunication()));
         }
+        #endregion
+
+
+        #region Stopping Thread
+
+        public void StopClientHandler()
+        {
+            socket.Close();
+            stream.Close();
+        }
+
         #endregion
     }
 }

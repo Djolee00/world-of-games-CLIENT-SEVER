@@ -39,18 +39,18 @@ namespace ServerProj.Handlers
         {
             // DICE GAME 
 
+            try { 
             GameDiceInit();
             bool end = false;
             while (!end)
             {
-                try {
+                
                     DisablePlayer();
                     end = PlayerTurn();
                     ChangePlayerTurn();
-                }catch(Exception e)
-                {
-                    MessageBox.Show("GameCommunication Exception GameHandler");
-                }
+            
+                
+
 
             }
 
@@ -66,15 +66,27 @@ namespace ServerProj.Handlers
 
             GameTriviaHandler();
 
+            }catch(Exception e)
+            {
+                stream1.Close();
+                stream2.Close();
+                player1.Socket.Close();
+                player2.Socket.Close();
+            }
+
         }
 
         private  async Task ListenForPLayerResponseTrivia(Socket socket)
         {
-            var request = (Request)formatter.Deserialize(new NetworkStream(socket));
-            numberOfPlayersInTriviaGame++;
+           
 
-            if (numberOfPlayersInTriviaGame == 2)
-                SendResponseToAll(new Response("",true,OperationResponse.TriviaGameStart));
+
+                var request = (Request)formatter.Deserialize(new NetworkStream(socket));
+                numberOfPlayersInTriviaGame++;
+
+                if (numberOfPlayersInTriviaGame == 2)
+                    SendResponseToAll(new Response("", true, OperationResponse.TriviaGameStart));
+
         }
 
         private async void GameTriviaHandler()
@@ -226,7 +238,7 @@ namespace ServerProj.Handlers
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    isEnd = true;
                 }
             }
         }
@@ -266,7 +278,7 @@ namespace ServerProj.Handlers
             bool isFinished = false;
             while(!end)
             {
-                try {
+                
                     
                     var request = (Request)formatter.Deserialize(stream1);
                     end = diceService.ProcessPlayerTurn(request, playerOneTurn);
@@ -276,11 +288,7 @@ namespace ServerProj.Handlers
                      isFinished = CheckWinner();
 
 
-                }catch(Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    return false;
-                }
+              
                
             }
 

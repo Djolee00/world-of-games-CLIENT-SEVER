@@ -56,9 +56,10 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(387, 24);
+            this.label1.Location = new System.Drawing.Point(940, 66);
+            this.label1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 30);
+            this.label1.Size = new System.Drawing.Size(186, 72);
             this.label1.TabIndex = 0;
             this.label1.Text = "Lobby";
             // 
@@ -91,7 +92,8 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 73);
+            this.dataGridView1.Location = new System.Drawing.Point(29, 200);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 102;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
@@ -104,7 +106,7 @@
             this.dataGridView1.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkGray;
             this.dataGridView1.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(986, 285);
+            this.dataGridView1.Size = new System.Drawing.Size(2395, 779);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -136,6 +138,7 @@
             this.btnColumn.FillWeight = 40F;
             this.btnColumn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnColumn.HeaderText = "";
+            this.btnColumn.MinimumWidth = 12;
             this.btnColumn.Name = "btnColumn";
             this.btnColumn.Text = "Challange";
             // 
@@ -157,9 +160,10 @@
             this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPlay.ForeColor = System.Drawing.Color.White;
-            this.btnPlay.Location = new System.Drawing.Point(252, 489);
+            this.btnPlay.Location = new System.Drawing.Point(612, 1337);
+            this.btnPlay.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(536, 49);
+            this.btnPlay.Size = new System.Drawing.Size(1302, 134);
             this.btnPlay.TabIndex = 8;
             this.btnPlay.Text = "New Game";
             this.btnPlay.UseVisualStyleBackColor = false;
@@ -173,9 +177,10 @@
             this.panel1.Controls.Add(this.btnNo);
             this.panel1.Controls.Add(this.btnYes);
             this.panel1.Controls.Add(this.lblPanel);
-            this.panel1.Location = new System.Drawing.Point(347, 216);
+            this.panel1.Location = new System.Drawing.Point(843, 590);
+            this.panel1.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(305, 206);
+            this.panel1.Size = new System.Drawing.Size(741, 563);
             this.panel1.TabIndex = 9;
             // 
             // btnOk
@@ -188,9 +193,10 @@
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOk.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnOk.ForeColor = System.Drawing.Color.Black;
-            this.btnOk.Location = new System.Drawing.Point(115, 129);
+            this.btnOk.Location = new System.Drawing.Point(279, 353);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(67, 49);
+            this.btnOk.Size = new System.Drawing.Size(163, 134);
             this.btnOk.TabIndex = 12;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = false;
@@ -200,9 +206,10 @@
             // 
             this.lblId.AutoSize = true;
             this.lblId.ForeColor = System.Drawing.Color.White;
-            this.lblId.Location = new System.Drawing.Point(9, 187);
+            this.lblId.Location = new System.Drawing.Point(22, 511);
+            this.lblId.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblId.Name = "lblId";
-            this.lblId.Size = new System.Drawing.Size(38, 15);
+            this.lblId.Size = new System.Drawing.Size(97, 41);
             this.lblId.TabIndex = 11;
             this.lblId.Text = "label2";
             // 
@@ -216,9 +223,10 @@
             this.btnNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnNo.ForeColor = System.Drawing.Color.Black;
-            this.btnNo.Location = new System.Drawing.Point(147, 129);
+            this.btnNo.Location = new System.Drawing.Point(357, 353);
+            this.btnNo.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnNo.Name = "btnNo";
-            this.btnNo.Size = new System.Drawing.Size(67, 49);
+            this.btnNo.Size = new System.Drawing.Size(163, 134);
             this.btnNo.TabIndex = 10;
             this.btnNo.Text = "No";
             this.btnNo.UseVisualStyleBackColor = false;
@@ -234,9 +242,10 @@
             this.btnYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnYes.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnYes.ForeColor = System.Drawing.Color.Black;
-            this.btnYes.Location = new System.Drawing.Point(74, 129);
+            this.btnYes.Location = new System.Drawing.Point(180, 353);
+            this.btnYes.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.btnYes.Name = "btnYes";
-            this.btnYes.Size = new System.Drawing.Size(67, 49);
+            this.btnYes.Size = new System.Drawing.Size(163, 134);
             this.btnYes.TabIndex = 9;
             this.btnYes.Text = "Yes";
             this.btnYes.UseVisualStyleBackColor = false;
@@ -247,22 +256,25 @@
             this.lblPanel.BackColor = System.Drawing.Color.Transparent;
             this.lblPanel.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblPanel.ForeColor = System.Drawing.Color.Black;
-            this.lblPanel.Location = new System.Drawing.Point(29, 28);
+            this.lblPanel.Location = new System.Drawing.Point(70, 77);
+            this.lblPanel.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
             this.lblPanel.Name = "lblPanel";
-            this.lblPanel.Size = new System.Drawing.Size(247, 84);
+            this.lblPanel.Size = new System.Drawing.Size(600, 230);
             this.lblPanel.TabIndex = 1;
             this.lblPanel.Text = "Lobby";
             // 
             // LobbyForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1010, 570);
+            this.ClientSize = new System.Drawing.Size(2453, 1558);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(7, 8, 7, 8);
             this.Name = "LobbyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LobbyForm";
