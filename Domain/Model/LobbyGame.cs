@@ -9,8 +9,11 @@ namespace Domain.Model
     public class LobbyGame
     {
         public string Owner { get; set; }
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
         public bool Status { get; set; }
+
+        public string Opponent { get; set; }
+        public string OpponentId { get; set; }
 
     }
 }
