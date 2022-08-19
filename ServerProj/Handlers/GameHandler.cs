@@ -157,6 +157,7 @@ namespace ServerProj.Handlers
                     var result = Task.WaitAny(playerOneClick, playerTwoClick,timer);
                     var result2 = 2;
 
+                  
                     if (result == 2) continue;
 
                     ts.Cancel();
@@ -218,6 +219,8 @@ namespace ServerProj.Handlers
                         else
                            result2 =  Task.WaitAny(timerSecond, playerOneClick);
 
+
+                        if (questionNumber++ == 3) isEnd = true;
                         if (result2 == 0) continue;
 
                         ts2.Cancel();
@@ -251,7 +254,7 @@ namespace ServerProj.Handlers
 
                     }
 
-                    if (questionNumber++ == 3) isEnd = true;
+                    
                     if (result2 == 1) lastTurnCorrect = false;
 
                     await Task.Delay(3000);
