@@ -148,6 +148,7 @@ namespace UI
 
             _thread.SetApartmentState(ApartmentState.STA);
             _thread.Start();
+
         }
 
 

@@ -83,7 +83,6 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "The Application is running in server mode.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // ServerForm
             // 
@@ -102,7 +101,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ServerForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ServerForm_FormClosing);
-            this.Load += new System.EventHandler(this.ServerForm_Load);
             this.ResumeLayout(false);
 
         }

@@ -113,7 +113,7 @@ namespace UI.User
             //new Thread(ListenAndAcceptForServerMessage).Start();
         }
 
-        private async void ListenAndAcceptForServerMessage()
+        private void ListenAndAcceptForServerMessage()
         {
 
             bool isEnd = false;
@@ -139,6 +139,8 @@ namespace UI.User
                         case OperationResponse.FalseAnswer: frmTrivia.FalseAnswer(response.Message); break;
                         case OperationResponse.DisablePlayerAfterFalseAnswer: frmTrivia.DisablePlayerAfterFalse(); break;
                         case OperationResponse.TimerOperation: frmTrivia.ChangeTimerOnScreen(response.Message); break;
+                        case OperationResponse.TriviaGameFinished: frmTrivia.ShowAWinner(response.Message); break;
+                        case OperationResponse.DummyResponse: frmTrivia.SendDummyRequest(); break;
                     }
                 }
                 catch (Exception ex)

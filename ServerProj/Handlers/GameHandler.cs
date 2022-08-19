@@ -22,6 +22,10 @@ namespace ServerProj.Handlers
 
         bool playerOneTurn = true;
         int numberOfPlayersInTriviaGame = 0;
+        bool lastTurnCorrect = true;
+
+        Task<string>? playerOneClick = null;
+        Task<string> playerTwoClick = null;
 
         public GameHandler(Player p1, Player p2)
         {
@@ -35,23 +39,19 @@ namespace ServerProj.Handlers
             
         }
 
-        public void GameCommunication()
+        public async void GameCommunication()
         {
             // DICE GAME 
 
-            try { 
+            try 
+            { 
             GameDiceInit();
             bool end = false;
             while (!end)
             {
-                
                     DisablePlayer();
                     end = PlayerTurn();
                     ChangePlayerTurn();
-            
-                
-
-
             }
 
             var taskPlayerOne = Task.Run(() => ListenForPLayerResponseTrivia(player1.Socket));
@@ -64,9 +64,33 @@ namespace ServerProj.Handlers
             stream1 = new NetworkStream(player1.Socket);
             stream2 = new NetworkStream(player2.Socket);
 
-            GameTriviaHandler();
+            await GameTriviaHandler();
 
-            }catch(Exception e)
+                if (playerOneClick != null && !playerOneClick.IsCompleted && playerTwoClick != null && !playerTwoClick.IsCompleted)
+                    SendResponseToAll(new Response("", true, OperationResponse.DummyResponse));
+                else
+                {
+                    if ((playerOneClick == null || playerOneClick.IsCompleted) && lastTurnCorrect)
+                        SendSingleResponse(stream2, new Response("", true, OperationResponse.DummyResponse));
+
+                    if ((playerTwoClick == null || playerTwoClick.IsCompleted) && lastTurnCorrect)
+                        SendSingleResponse(stream1, new Response("", true, OperationResponse.DummyResponse));
+
+                }
+               
+
+                DisplayTheWinner();
+
+            var clientHandler = new ClientHandler(player1.Socket);
+            Task.Run(() => clientHandler.ProcessRequests());
+                
+            var clientHandler2 = new ClientHandler(player2.Socket);
+            Task.Run(() => clientHandler2.ProcessRequests());
+            
+
+
+            }
+            catch(Exception e)
             {
                 stream1.Close();
                 stream2.Close();
@@ -78,26 +102,20 @@ namespace ServerProj.Handlers
 
         private  async Task ListenForPLayerResponseTrivia(Socket socket)
         {
-           
+            var request = (Request)formatter.Deserialize(new NetworkStream(socket));
+            numberOfPlayersInTriviaGame++;
 
-
-                var request = (Request)formatter.Deserialize(new NetworkStream(socket));
-                numberOfPlayersInTriviaGame++;
-
-                if (numberOfPlayersInTriviaGame == 2)
-                    SendResponseToAll(new Response("", true, OperationResponse.TriviaGameStart));
-
+            if (numberOfPlayersInTriviaGame == 2)
+               SendResponseToAll(new Response("", true, OperationResponse.TriviaGameStart));
         }
 
-        private async void GameTriviaHandler()
+        private async Task GameTriviaHandler()
         {
             triviaService = new TriviaService();
 
-            Task<string> playerOneClick = null;
-            Task<string> playerTwoClick = null;
-            
+            var isEnd = false;
+            var questionNumber = 1;
 
-            bool isEnd = false;
             while (!isEnd)
             {
                 try
@@ -137,6 +155,7 @@ namespace ServerProj.Handlers
 
 
                     var result = Task.WaitAny(playerOneClick, playerTwoClick,timer);
+                    var result2 = 2;
 
                     if (result == 2) continue;
 
@@ -146,7 +165,6 @@ namespace ServerProj.Handlers
                     var isAnwerCorrect = correctAnswer == givenAnswer;
 
                     var responseMessage = "";
-
 
                     if (isAnwerCorrect)
                     {
@@ -194,7 +212,6 @@ namespace ServerProj.Handlers
                             }
                         }, ct2);
 
-                        int result2;
 
                         if (result == 0)
                           result2 =  Task.WaitAny(timerSecond, playerTwoClick);
@@ -234,7 +251,10 @@ namespace ServerProj.Handlers
 
                     }
 
+                    if (questionNumber++ == 3) isEnd = true;
+                    if (result2 == 1) lastTurnCorrect = false;
 
+                    await Task.Delay(3000);
                 }
                 catch(Exception ex)
                 {
@@ -278,18 +298,12 @@ namespace ServerProj.Handlers
             bool isFinished = false;
             while(!end)
             {
-                
-                    
                     var request = (Request)formatter.Deserialize(stream1);
                     end = diceService.ProcessPlayerTurn(request, playerOneTurn);
                     var sr = diceService.GetScores();
                     SendResponseToAll(new Response(sr, true, OperationResponse.ChangeScores));
 
                      isFinished = CheckWinner();
-
-
-              
-               
             }
 
             return isFinished;
@@ -335,5 +349,12 @@ namespace ServerProj.Handlers
             SendSingleResponse(stream1, new Response($"{(playerOneTurn ? "prvi" : "drugi")}", false, OperationResponse.EnablePlayer));
         }
 
+        private void DisplayTheWinner()
+        {
+            var winner = $"{(player1.Score > player2.Score ? "player1" : $"{(player2.Score > player1.Score ? "player2" : "draw")}")}";
+            var responseMessage = winner + $";{player1.Name};{player1.Score};{player2.Name};{player2.Score}";
+
+            SendResponseToAll(new Response(responseMessage, true, OperationResponse.TriviaGameFinished));
+        }
     }
 }

@@ -19,11 +19,6 @@ namespace ServerProj
             
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Server.Instance.StopTheServer();
@@ -33,14 +28,9 @@ namespace ServerProj
         private void ServerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Server.Instance.StopTheServer();
+            Application.Exit();
             
         }
-
-        private void ServerForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnPlay_Click(object sender, EventArgs e)
         {
             Server.Instance.StopTheServer();

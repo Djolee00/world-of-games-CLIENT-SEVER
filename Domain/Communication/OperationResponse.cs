@@ -24,6 +24,8 @@ namespace Domain.Communication
         CorrectAnwer,
         FalseAnswer,
         DisablePlayerAfterFalseAnswer,
-        TimerOperation
+        TimerOperation,
+        TriviaGameFinished,
+        DummyResponse
     }
 }

@@ -21,8 +21,6 @@ namespace ServerProj
         bool isEnd = false;
         LobbyService service;
 
-        List<Task> tasks = new List<Task>();
-
         public ClientHandler(Socket socket)
         {
             this.socket = socket;
@@ -74,7 +72,7 @@ namespace ServerProj
                 //throw;
                 MessageBox.Show("ProcessingSingleRequest Exception ClientHandler");
                 socket.Close();
-               stream.Close();
+                stream.Close();
                
             }
         }
@@ -142,7 +140,7 @@ namespace ServerProj
 
         #endregion
 
-        private void GameAccepted(string opponentId)
+        private async void GameAccepted(string opponentId)
         {
             var player = service.LocalPlayer;
             var opponentPlayer = service.FindAPlayerById(opponentId);
@@ -151,8 +149,9 @@ namespace ServerProj
 
             var gameHandler = new GameHandler(player, opponentPlayer);
 
+            await Task.Run(() => gameHandler.GameCommunication());
 
-            tasks.Add(Task.Run(() => gameHandler.GameCommunication()));
+
         }
         #endregion
 

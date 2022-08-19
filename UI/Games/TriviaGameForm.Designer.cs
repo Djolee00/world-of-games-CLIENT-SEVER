@@ -37,7 +37,10 @@
             this.btnC = new System.Windows.Forms.Button();
             this.btnD = new System.Windows.Forms.Button();
             this.pnlWaiting = new System.Windows.Forms.Panel();
+            this.btnOk = new System.Windows.Forms.Button();
             this.lblText = new System.Windows.Forms.Label();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.labelWiiner = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlWaiting.SuspendLayout();
             this.SuspendLayout();
@@ -143,11 +146,33 @@
             // pnlWaiting
             // 
             this.pnlWaiting.BackColor = System.Drawing.Color.White;
+            this.pnlWaiting.Controls.Add(this.btnOk);
             this.pnlWaiting.Controls.Add(this.lblText);
+            this.pnlWaiting.Controls.Add(this.labelInfo);
+            this.pnlWaiting.Controls.Add(this.labelWiiner);
             this.pnlWaiting.Location = new System.Drawing.Point(212, 125);
             this.pnlWaiting.Name = "pnlWaiting";
-            this.pnlWaiting.Size = new System.Drawing.Size(447, 222);
+            this.pnlWaiting.Size = new System.Drawing.Size(447, 241);
             this.pnlWaiting.TabIndex = 1;
+            // 
+            // btnOk
+            // 
+            this.btnOk.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnOk.BackColor = System.Drawing.Color.Transparent;
+            this.btnOk.Enabled = false;
+            this.btnOk.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnOk.FlatAppearance.BorderSize = 2;
+            this.btnOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(192)))), ((int)(((byte)(193)))));
+            this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOk.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnOk.ForeColor = System.Drawing.Color.Black;
+            this.btnOk.Location = new System.Drawing.Point(186, 189);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(67, 49);
+            this.btnOk.TabIndex = 13;
+            this.btnOk.Text = "Ok";
+            this.btnOk.UseVisualStyleBackColor = false;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // lblText
             // 
@@ -159,6 +184,23 @@
             this.lblText.Size = new System.Drawing.Size(350, 41);
             this.lblText.TabIndex = 0;
             this.lblText.Text = "Waiting for opponent...";
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelInfo.Location = new System.Drawing.Point(62, 75);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(323, 100);
+            this.labelInfo.TabIndex = 2;
+            // 
+            // labelWiiner
+            // 
+            this.labelWiiner.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelWiiner.Location = new System.Drawing.Point(62, 22);
+            this.labelWiiner.Name = "labelWiiner";
+            this.labelWiiner.Size = new System.Drawing.Size(350, 61);
+            this.labelWiiner.TabIndex = 1;
+            this.labelWiiner.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // TriviaGameForm
             // 
@@ -197,5 +239,8 @@
         private Panel pnlWaiting;
         private Label lblText;
         private Label label1;
+        private Label labelInfo;
+        private Label labelWiiner;
+        private Button btnOk;
     }
 }

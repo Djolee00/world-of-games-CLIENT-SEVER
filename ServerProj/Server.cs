@@ -42,7 +42,8 @@ namespace ServerProj
                 socketListener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 IPEndPoint port = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9000);
                 socketListener.Bind(port);
-                socketListener.Listen(5);
+                socketListener.Listen(10);
+
                 Task.Run(() => ListenForConnections());
                 //new Thread(ListenForConnections).Start();
                 return true;
@@ -86,12 +87,11 @@ namespace ServerProj
                 {
                     Socket userSocket = socketListener.Accept();
 
-                   // MessageBox.Show(userSocket.RemoteEndPoint.ToString());
                     var handler = new ClientHandler(userSocket);
                     clientHandlers.Add(handler);
+
                     //new Thread(handler.ProcessRequests).Start();
                     var task = Task.Run(() => handler.ProcessRequests());
-                    
                 }
             }
             catch (Exception ex)

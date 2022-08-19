@@ -1,4 +1,5 @@
 ﻿using Domain.Communication;
+using ServerProj;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,13 +17,13 @@ namespace UI.Games
         public TriviaGameForm()
         {
             InitializeComponent();
-           User.User.Instance.frmTrivia = this;
+            User.User.Instance.frmTrivia = this;
         }
 
         public void InitGameScene()
         {
             pnlWaiting.Visible = false;
-
+            labelWiiner.Visible = labelInfo.Visible = false;
         }
 
         internal void MsgBox(string message)
@@ -43,7 +44,6 @@ namespace UI.Games
             btnB.Text = questionInfo[3];
             btnC.Text = questionInfo[4];
             btnD.Text = questionInfo[5];
-
         }
 
         public void ChangeTimerOnScreen(string i)
@@ -121,5 +121,34 @@ namespace UI.Games
         {
             label1.Text = i.ToString();
         }
+
+        public void ShowAWinner(string message)
+        {
+            var info = message.Split(';');
+
+            pnlWaiting.Visible = true;
+            lblText.Visible = false;
+            labelWiiner.Visible = labelInfo.Visible = btnOk.Visible = true;
+
+            btnOk.Enabled = true;
+
+            var winner = "Winner is ";
+
+            if (info[0] == "player1") winner += info[1];
+            else if (info[0] == "player2") winner += info[3];
+            else winner = "It's a draw, no one is a winner!";
+
+            labelWiiner.Text = winner;
+            labelInfo.Text = $"Player {info[1]} : {info[2]} \nPlayer {info[3]} : {info[4]}";
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            var lobby = new LobbyForm();
+            this.Close();
+            lobby.Show();
+        }
+
+        public void SendDummyRequest() => User.User.Instance.SendRequest(OperationRequest.DummyRequest, "");
     }
 }

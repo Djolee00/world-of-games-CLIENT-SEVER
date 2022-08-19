@@ -18,6 +18,7 @@ namespace Domain.Communication
         WelcomeLobby,
         LobbyRefresh,
         GameAccepted,
-        TriviaGameStart
+        TriviaGameStart,
+        DummyRequest
     }
 }
