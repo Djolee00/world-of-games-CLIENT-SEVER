@@ -23,7 +23,6 @@ namespace UI
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-
             User.User.Instance.SendRequest(OperationRequest.MakeANewLobbyGame, "");
         }
 
@@ -78,7 +77,7 @@ namespace UI
         {
             try
             {
-                dataGridView1.Invoke(delegate
+                dataGridView1.BeginInvoke(delegate
                 {
                     dataGridView1.Rows.Clear();
                 });
@@ -87,9 +86,9 @@ namespace UI
 
                 foreach (var game in split)
                 {
-                    var row = game.Split(' ');
+                    var row = game.Split('*');
                     if (row[0] != "")
-                        dataGridView1.Invoke(delegate
+                        dataGridView1.BeginInvoke(delegate
                         {
                             dataGridView1.Rows.Add(row[0], row[1], "Challange", row[2]);
                         });
@@ -98,6 +97,7 @@ namespace UI
             catch (Exception ex)
             {
                 MessageBox.Show("RefreshDataGrid");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -122,7 +122,6 @@ namespace UI
             User.User.Instance.SendRequest(OperationRequest.GameAccepted, lblId.Text);
 
         }
-
         public void PrekiniMeKaoHladnaVoda()
         {
             User.User.Instance.SendRequest(OperationRequest.BreakThread, "");

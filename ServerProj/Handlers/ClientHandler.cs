@@ -19,6 +19,7 @@ namespace ServerProj
         NetworkStream stream;
         BinaryFormatter formatter = new BinaryFormatter();
         bool isEnd = false;
+
         LobbyService service;
 
         public ClientHandler(Socket socket)
@@ -39,7 +40,7 @@ namespace ServerProj
                     var request = (Request)formatter.Deserialize(stream);
                     ProcessSingleRequest(request);
                     if (request.Operation == OperationRequest.GameAccepted) break;
-                    if (request.Operation == OperationRequest.BreakThread) break;
+                    if (request.Operation == OperationRequest.BreakThread)  break;
                 }
                 catch (Exception ex)
                 {
@@ -60,6 +61,7 @@ namespace ServerProj
                     case OperationRequest.LobbyRefresh: RefreshLobby();break;
                     case OperationRequest.WelcomeLobby: WelcomeToLobby(); break;
                     case OperationRequest.CreateGameRequest: SendGameRequest(request.Body);break;
+                    case OperationRequest.BreakThread: Server.clientHandlers.Remove(this); break;
                     case OperationRequest.GameRejected: SendRejectGameNotification(request.Body); break;
                     case OperationRequest.GameAccepted: GameAccepted(request.Body); break;
                 }
@@ -82,10 +84,16 @@ namespace ServerProj
         private void SendSingleResponse(NetworkStream str, Response response) => formatter.Serialize(str, response);
 
         public void SendResponseToAll(Response response)
-        {
-            foreach (var player in Server.onlineUsers)
+        { 
+        //    foreach (var handler in Server.clientHandlers)
+        //    {
+        //        var str = new NetworkStream(handler.socket);
+        //        SendSingleResponse(str, response);
+        //    }
+
+            for (int i = 0; i < Server.clientHandlers.Count; i++)
             {
-                var str = new NetworkStream(player.Socket);
+                var str = new NetworkStream(Server.clientHandlers[i].socket);
                 SendSingleResponse(str, response);
             }
         }
@@ -145,12 +153,20 @@ namespace ServerProj
             var player = service.LocalPlayer;
             var opponentPlayer = service.FindAPlayerById(opponentId);
 
+            //player.Status = opponentPlayer.Status = false;
+
+            Server.clientHandlers.Remove(this);
+            service.UpdateLobbyGame(opponentPlayer);
+            service.EndGameAndRemoveFromLobbyGames(opponentPlayer);
+            
             SendSingleResponse(new NetworkStream(opponentPlayer.Socket), new Response("", true, OperationResponse.GameAcceptedOpponent));
 
             var gameHandler = new GameHandler(player, opponentPlayer);
 
-            await Task.Run(() => gameHandler.GameCommunication());
+           Task.Run(() => gameHandler.GameCommunication());
 
+
+            RefreshLobby();
 
         }
         #endregion

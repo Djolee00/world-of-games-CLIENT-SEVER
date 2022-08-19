@@ -15,7 +15,7 @@ namespace ServerProj
 
         public static List<Player> onlineUsers = new List<Player>();
         public static List<LobbyGame> availableGames = new List<LobbyGame>();
-        private List<ClientHandler> clientHandlers = new List<ClientHandler>();
+        public static List<ClientHandler> clientHandlers = new List<ClientHandler>();
      
 
         public static int id = 1;

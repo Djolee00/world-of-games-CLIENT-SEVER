@@ -42,7 +42,6 @@ namespace ServerProj.Handlers
         public async void GameCommunication()
         {
             // DICE GAME 
-
             try 
             { 
             GameDiceInit();
@@ -70,11 +69,11 @@ namespace ServerProj.Handlers
                     SendResponseToAll(new Response("", true, OperationResponse.DummyResponse));
                 else
                 {
-                    if ((playerOneClick == null || playerOneClick.IsCompleted) && lastTurnCorrect)
-                        SendSingleResponse(stream2, new Response("", true, OperationResponse.DummyResponse));
-
-                    if ((playerTwoClick == null || playerTwoClick.IsCompleted) && lastTurnCorrect)
+                    if (playerOneClick != null && !playerOneClick.IsCompleted)
                         SendSingleResponse(stream1, new Response("", true, OperationResponse.DummyResponse));
+
+                    if (playerTwoClick != null && !playerTwoClick.IsCompleted)
+                        SendSingleResponse(stream2, new Response("", true, OperationResponse.DummyResponse));
 
                 }
                
@@ -86,8 +85,8 @@ namespace ServerProj.Handlers
                 
             var clientHandler2 = new ClientHandler(player2.Socket);
             Task.Run(() => clientHandler2.ProcessRequests());
-            
 
+            Server.clientHandlers.AddRange(new ClientHandler[]{ clientHandler, clientHandler2 });
 
             }
             catch(Exception e)
@@ -99,6 +98,7 @@ namespace ServerProj.Handlers
             }
 
         }
+
 
         private  async Task ListenForPLayerResponseTrivia(Socket socket)
         {
@@ -157,7 +157,8 @@ namespace ServerProj.Handlers
                     var result = Task.WaitAny(playerOneClick, playerTwoClick,timer);
                     var result2 = 2;
 
-                  
+                    if (questionNumber++ == 3) isEnd = true;
+
                     if (result == 2) continue;
 
                     ts.Cancel();
@@ -254,8 +255,8 @@ namespace ServerProj.Handlers
 
                     }
 
-                    
-                    if (result2 == 1) lastTurnCorrect = false;
+                    if (result2 != 2) lastTurnCorrect = false;
+                    else lastTurnCorrect = true;
 
                     await Task.Delay(3000);
                 }
