@@ -94,6 +94,10 @@ namespace ServerProj
 
             var game = Server.availableGames.FirstOrDefault(g => g.OwnerId == localPlayer.Id && g.OpponentId == opponentPlayer.Id);
 
+            var opponentLobyGame = Server.availableGames.FirstOrDefault(g => g.OwnerId == opponentPlayer.Id);
+            
+            if(opponentLobyGame !=null) Server.availableGames.Remove(opponentLobyGame);
+
             Server.availableGames.Remove(game);
         }
         #endregion

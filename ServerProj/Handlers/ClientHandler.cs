@@ -158,6 +158,7 @@ namespace ServerProj
             Server.clientHandlers.Remove(this);
             service.UpdateLobbyGame(opponentPlayer);
             service.EndGameAndRemoveFromLobbyGames(opponentPlayer);
+
             
             SendSingleResponse(new NetworkStream(opponentPlayer.Socket), new Response("", true, OperationResponse.GameAcceptedOpponent));
 
