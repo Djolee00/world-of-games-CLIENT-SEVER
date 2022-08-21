@@ -98,6 +98,7 @@ namespace ServerProj.Handlers
             }
             catch(PlayerLeftExceptionTrivia ex)
             {
+               
                 ex.str.Close();
                 ex.str.Socket.Close();
             }
@@ -174,6 +175,7 @@ namespace ServerProj.Handlers
                     if (result == 2) continue;
 
                     ts.Cancel();
+
 
                     var givenAnswer = (result == 0 ? playerOneClick.Result.ToString() : playerTwoClick.Result.ToString());
                     var isAnwerCorrect = correctAnswer == givenAnswer;
@@ -270,11 +272,12 @@ namespace ServerProj.Handlers
 
                     await Task.Delay(3000);
                 }
-                catch (PlayerLeftExceptionTrivia ex)
+                catch (System.AggregateException ex)
                 {
-                    MessageBox.Show("USAO");
+
                     isEnd = true;
-                    throw new PlayerLeftExceptionTrivia(ex.str);   
+                    PlayerLeftExceptionTrivia e = (PlayerLeftExceptionTrivia)ex.InnerException;
+                    throw new PlayerLeftExceptionTrivia(e.str);   
                 }
                 catch(SocketException ex)
                 {
@@ -294,9 +297,10 @@ namespace ServerProj.Handlers
             if(request.Operation == OperationRequest.PlayerLeftGame)
             {
                 OpponentLeftGame(stream2, "trivia");
+                //SendSingleResponse(stream2, new Response("",true,OperationResponse.DummyResponse));
                 var clientHandler = new ClientHandler(stream2.Socket);
-                Task.Run(() => clientHandler.ProcessRequests());
                 Server.clientHandlers.Add(clientHandler);
+                Task.Run(() => clientHandler.ProcessRequests());
                 throw new PlayerLeftExceptionTrivia(stream);
             }
 
