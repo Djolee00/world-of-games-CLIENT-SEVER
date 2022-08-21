@@ -41,6 +41,7 @@
             this.lblText = new System.Windows.Forms.Label();
             this.labelInfo = new System.Windows.Forms.Label();
             this.labelWiiner = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnlWaiting.SuspendLayout();
             this.SuspendLayout();
@@ -202,6 +203,23 @@
             this.labelWiiner.TabIndex = 1;
             this.labelWiiner.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.Color.Black;
+            this.btnCancel.Location = new System.Drawing.Point(803, 13);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(45, 45);
+            this.btnCancel.TabIndex = 13;
+            this.btnCancel.Text = "X";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // TriviaGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -209,6 +227,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(861, 515);
             this.ControlBox = false;
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.pnlWaiting);
             this.Controls.Add(this.btnD);
             this.Controls.Add(this.btnC);
@@ -242,5 +261,6 @@
         private Label labelInfo;
         private Label labelWiiner;
         private Button btnOk;
+        private Button btnCancel;
     }
 }

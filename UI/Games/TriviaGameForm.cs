@@ -122,24 +122,37 @@ namespace UI.Games
             label1.Text = i.ToString();
         }
 
-        public void ShowAWinner(string message)
+        public void ShowAWinner(string message, bool win)
         {
-            var info = message.Split(';');
+            if (win)
+            {
+                var info = message.Split(';');
 
-            pnlWaiting.Visible = true;
-            lblText.Visible = false;
-            labelWiiner.Visible = labelInfo.Visible = btnOk.Visible = true;
+                pnlWaiting.Visible = true;
+                lblText.Visible = false;
+                labelWiiner.Visible = labelInfo.Visible = btnOk.Visible = true;
 
-            btnOk.Enabled = true;
+                btnOk.Enabled = true;
 
-            var winner = "Winner is ";
+                var winner = "Winner is ";
 
-            if (info[0] == "player1") winner += info[1];
-            else if (info[0] == "player2") winner += info[3];
-            else winner = "It's a draw, no one is a winner!";
+                if (info[0] == "player1") winner += info[1];
+                else if (info[0] == "player2") winner += info[3];
+                else winner = "It's a draw, no one is a winner!";
 
-            labelWiiner.Text = winner;
-            labelInfo.Text = $"Player {info[1]} : {info[2]} \nPlayer {info[3]} : {info[4]}";
+                labelWiiner.Text = winner;
+                labelInfo.Text = $"Player {info[1]} : {info[2]} \nPlayer {info[3]} : {info[4]}";
+            }
+            else
+            {
+                pnlWaiting.Visible = true;
+                labelWiiner.Visible = btnOk.Visible = true;
+
+                btnOk.Enabled = true;
+
+                labelWiiner.Text = "Opponent left the game.\nCongratulations you are the winner!";
+
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -150,5 +163,11 @@ namespace UI.Games
         }
 
         public void SendDummyRequest() => User.User.Instance.SendRequest(OperationRequest.DummyRequest, "");
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            User.User.Instance.SendRequest(OperationRequest.PlayerLeftGame, "");
+            Application.Exit();
+        }
     }
 }

@@ -282,7 +282,6 @@
             this.Name = "RollADiceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RollADiceForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RollADiceForm_FormClosing);
             this.Load += new System.EventHandler(this.RollADiceForm_Load);
             this.panelGame.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

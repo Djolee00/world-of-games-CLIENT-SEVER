@@ -139,11 +139,11 @@ namespace UI.User
                         case OperationResponse.FalseAnswer: frmTrivia.FalseAnswer(response.Message); break;
                         case OperationResponse.DisablePlayerAfterFalseAnswer: frmTrivia.DisablePlayerAfterFalse(); break;
                         case OperationResponse.TimerOperation: frmTrivia.ChangeTimerOnScreen(response.Message); break;
-                        case OperationResponse.TriviaGameFinished: frmTrivia.ShowAWinner(response.Message); break;
+                        case OperationResponse.TriviaGameFinished: frmTrivia.ShowAWinner(response.Message,true); break;
                         case OperationResponse.DummyResponse: frmTrivia.SendDummyRequest(); break;
                         case OperationResponse.OpponentLeftGame:
                             if (response.Message == "dice") frmDice.BackPlayerToLoby();
-                            else break;
+                            else frmTrivia.ShowAWinner(response.Message,false); 
                             break;
                     }
                 }

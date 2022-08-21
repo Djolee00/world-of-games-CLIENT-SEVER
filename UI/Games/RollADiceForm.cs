@@ -124,20 +124,17 @@ namespace UI.Games
             else
             {
                 var lobby = new LobbyForm();
-                this.Close();
+                this.Hide();
                 lobby.Show();
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            User.User.Instance.SendRequest(OperationRequest.PlayerLeftGame, "");
             Application.Exit();
         }
 
-        private void RollADiceForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            User.User.Instance.SendRequest(OperationRequest.PlayerLeftGame, "");
-        }
 
         public void BackPlayerToLoby()
         {

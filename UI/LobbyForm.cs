@@ -152,12 +152,9 @@ namespace UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            User.User.Instance.SendRequest(OperationRequest.UserDiscconected, "");
             Application.Exit();
         }
 
-        private void LobbyForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            User.User.Instance.SendRequest(OperationRequest.UserDiscconected, "");
-        }
     }
 }

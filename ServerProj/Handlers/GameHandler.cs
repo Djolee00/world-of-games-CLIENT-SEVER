@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,6 +96,11 @@ namespace ServerProj.Handlers
                 stream1.Close();
                 stream1.Socket.Close();
             }
+            catch(PlayerLeftExceptionTrivia ex)
+            {
+                ex.str.Close();
+                ex.str.Socket.Close();
+            }
             catch (Exception e)
             {
                 stream1.Close();
@@ -135,13 +141,13 @@ namespace ServerProj.Handlers
                     
                     if(playerOneClick == null || playerOneClick.IsCompleted)
                     {
-                        playerOneClick = Task.Run(() => GetAUserClick(stream1));
+                        playerOneClick = Task.Run(() => GetAUserClick(stream1,stream2));
                     }
 
 
                     if (playerTwoClick == null || playerTwoClick.IsCompleted)
                     {
-                        playerTwoClick = Task.Run(() => GetAUserClick(stream2));
+                        playerTwoClick = Task.Run(() => GetAUserClick(stream2,stream1));
                     }
 
                     CancellationTokenSource ts = new CancellationTokenSource();
@@ -226,8 +232,6 @@ namespace ServerProj.Handlers
                         else
                            result2 =  Task.WaitAny(timerSecond, playerOneClick);
 
-
-                        if (questionNumber++ == 3) isEnd = true;
                         if (result2 == 0) continue;
 
                         ts2.Cancel();
@@ -266,16 +270,35 @@ namespace ServerProj.Handlers
 
                     await Task.Delay(3000);
                 }
-                catch(Exception ex)
+                catch (PlayerLeftExceptionTrivia ex)
+                {
+                    MessageBox.Show("USAO");
+                    isEnd = true;
+                    throw new PlayerLeftExceptionTrivia(ex.str);   
+                }
+                catch(SocketException ex)
+                {
+                    isEnd = true;
+                }
+                catch(SerializationException ex)
                 {
                     isEnd = true;
                 }
             }
         }
 
-        private async Task<string> GetAUserClick(NetworkStream stream)
+        private async Task<string> GetAUserClick(NetworkStream stream, NetworkStream stream2)
         {
             var request = (Request)formatter.Deserialize(stream);
+
+            if(request.Operation == OperationRequest.PlayerLeftGame)
+            {
+                OpponentLeftGame(stream2, "trivia");
+                var clientHandler = new ClientHandler(stream2.Socket);
+                Task.Run(() => clientHandler.ProcessRequests());
+                Server.clientHandlers.Add(clientHandler);
+                throw new PlayerLeftExceptionTrivia(stream);
+            }
 
             return request.Body;
         }
@@ -311,7 +334,7 @@ namespace ServerProj.Handlers
                     var request = (Request)formatter.Deserialize(stream1);
                     if (request.Operation == OperationRequest.PlayerLeftGame)
                     {
-                    OpponentLeftGame();
+                    OpponentLeftGame(stream2,"dice");
                     var clientHandler = new ClientHandler(stream2.Socket);
                     Task.Run(() => clientHandler.ProcessRequests());
                     Server.clientHandlers.Add(clientHandler);
@@ -327,9 +350,9 @@ namespace ServerProj.Handlers
             return isFinished;
         }
 
-        private void OpponentLeftGame()
+        private void OpponentLeftGame(NetworkStream streamm,string message)
         {
-            SendSingleResponse(stream2, new Response("dice", true, OperationResponse.OpponentLeftGame));
+            SendSingleResponse(streamm, new Response(message, true, OperationResponse.OpponentLeftGame));
         }
 
         private bool CheckWinner()
