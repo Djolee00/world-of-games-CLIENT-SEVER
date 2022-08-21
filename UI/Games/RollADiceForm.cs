@@ -112,12 +112,39 @@ namespace UI.Games
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var triviaForm = new TriviaGameForm();
-            this.Hide();
-            triviaForm.Show();
+            if (button3.Text == "Start")
+            {
+                var triviaForm = new TriviaGameForm();
+                this.Hide();
+                triviaForm.Show();
 
-            User.User.Instance.SendRequest(OperationRequest.TriviaGameStart, "");
+                User.User.Instance.SendRequest(OperationRequest.TriviaGameStart, "");
+            }
+
+            else
+            {
+                var lobby = new LobbyForm();
+                this.Close();
+                lobby.Show();
+            }
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void RollADiceForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            User.User.Instance.SendRequest(OperationRequest.PlayerLeftGame, "");
+        }
+
+        public void BackPlayerToLoby()
+        {
+            panel1.Visible = true;
+            labelNotification.Text = "Opponent left the game.\nCongratulations you are the winner!";
+            label1.Visible = false;
+            button3.Text = "Ok";
+        }
     }
 }

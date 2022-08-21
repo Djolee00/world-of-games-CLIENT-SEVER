@@ -46,6 +46,7 @@
             this.panelPlayer2 = new System.Windows.Forms.Panel();
             this.labelPlayer2Name = new System.Windows.Forms.Label();
             this.labelPlayer2Score = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.panelGame.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -219,6 +220,7 @@
             // 
             this.panelPlayer2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelPlayer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(228)))), ((int)(((byte)(232)))));
+            this.panelPlayer2.Controls.Add(this.btnCancel);
             this.panelPlayer2.Controls.Add(this.labelPlayer2Name);
             this.panelPlayer2.Controls.Add(this.labelPlayer2Score);
             this.panelPlayer2.Location = new System.Drawing.Point(389, 0);
@@ -248,6 +250,23 @@
             this.labelPlayer2Score.TabIndex = 5;
             this.labelPlayer2Score.Text = "0";
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(228)))), ((int)(((byte)(232)))));
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(115)))), ((int)(((byte)(117)))));
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.ForeColor = System.Drawing.Color.Black;
+            this.btnCancel.Location = new System.Drawing.Point(340, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(45, 45);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "X";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // RollADiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -263,6 +282,7 @@
             this.Name = "RollADiceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RollADiceForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RollADiceForm_FormClosing);
             this.Load += new System.EventHandler(this.RollADiceForm_Load);
             this.panelGame.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -297,5 +317,6 @@
         private Label labelNotification;
         private Label label1;
         private Button button3;
+        private Button btnCancel;
     }
 }

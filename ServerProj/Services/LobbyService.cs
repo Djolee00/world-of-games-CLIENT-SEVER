@@ -100,6 +100,21 @@ namespace ServerProj
 
             Server.availableGames.Remove(game);
         }
+
+        private LobbyGame FindAGame()
+        {
+            localPlayer = localPlayer ?? SetALocalPlayer();
+
+            return Server.availableGames.FirstOrDefault(g => g.OwnerId == localPlayer.Id);
+        }
+
+        public void RemoveGameForPlay()
+        {
+            var game = FindAGame();
+
+            if (game != null)
+                Server.availableGames.Remove(game);
+        }
         #endregion
 
         public (NetworkStream,string) FindStreamById(string id)

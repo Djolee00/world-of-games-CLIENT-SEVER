@@ -188,7 +188,7 @@
             // labelInfo
             // 
             this.labelInfo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelInfo.Location = new System.Drawing.Point(62, 75);
+            this.labelInfo.Location = new System.Drawing.Point(62, 86);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(323, 100);
             this.labelInfo.TabIndex = 2;
@@ -198,7 +198,7 @@
             this.labelWiiner.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelWiiner.Location = new System.Drawing.Point(62, 22);
             this.labelWiiner.Name = "labelWiiner";
-            this.labelWiiner.Size = new System.Drawing.Size(350, 61);
+            this.labelWiiner.Size = new System.Drawing.Size(350, 86);
             this.labelWiiner.TabIndex = 1;
             this.labelWiiner.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 

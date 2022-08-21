@@ -141,6 +141,10 @@ namespace UI.User
                         case OperationResponse.TimerOperation: frmTrivia.ChangeTimerOnScreen(response.Message); break;
                         case OperationResponse.TriviaGameFinished: frmTrivia.ShowAWinner(response.Message); break;
                         case OperationResponse.DummyResponse: frmTrivia.SendDummyRequest(); break;
+                        case OperationResponse.OpponentLeftGame:
+                            if (response.Message == "dice") frmDice.BackPlayerToLoby();
+                            else break;
+                            break;
                     }
                 }
                 catch (Exception ex)

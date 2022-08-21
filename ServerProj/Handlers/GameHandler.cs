@@ -1,5 +1,6 @@
 ﻿using Domain.Communication;
 using Domain.Model;
+using Domain.Model.Exceptions;
 using ServerProj.Services;
 using System;
 using System.Collections.Generic;
@@ -42,28 +43,28 @@ namespace ServerProj.Handlers
         public async void GameCommunication()
         {
             // DICE GAME 
-            try 
-            { 
-            GameDiceInit();
-            bool end = false;
-            while (!end)
+            try
             {
+                GameDiceInit();
+                bool end = false;
+                while (!end)
+                {
                     DisablePlayer();
                     end = PlayerTurn();
                     ChangePlayerTurn();
-            }
+                }
 
-            var taskPlayerOne = Task.Run(() => ListenForPLayerResponseTrivia(player1.Socket));
-            var taskPlayerTwo = Task.Run(() => ListenForPLayerResponseTrivia(player2.Socket));
+                var taskPlayerOne = Task.Run(() => ListenForPLayerResponseTrivia(player1.Socket));
+                var taskPlayerTwo = Task.Run(() => ListenForPLayerResponseTrivia(player2.Socket));
 
-            Task.WaitAll(new Task[] { taskPlayerOne, taskPlayerTwo });
+                Task.WaitAll(new Task[] { taskPlayerOne, taskPlayerTwo });
 
-            // TRIVIA GAME 
+                // TRIVIA GAME 
 
-            stream1 = new NetworkStream(player1.Socket);
-            stream2 = new NetworkStream(player2.Socket);
+                stream1 = new NetworkStream(player1.Socket);
+                stream2 = new NetworkStream(player2.Socket);
 
-            await GameTriviaHandler();
+                await GameTriviaHandler();
 
                 if (playerOneClick != null && !playerOneClick.IsCompleted && playerTwoClick != null && !playerTwoClick.IsCompleted)
                     SendResponseToAll(new Response("", true, OperationResponse.DummyResponse));
@@ -76,20 +77,25 @@ namespace ServerProj.Handlers
                         SendSingleResponse(stream2, new Response("", true, OperationResponse.DummyResponse));
 
                 }
-               
+
 
                 DisplayTheWinner();
 
-            var clientHandler = new ClientHandler(player1.Socket);
-            Task.Run(() => clientHandler.ProcessRequests());
-                
-            var clientHandler2 = new ClientHandler(player2.Socket);
-            Task.Run(() => clientHandler2.ProcessRequests());
+                var clientHandler = new ClientHandler(player1.Socket);
+                Task.Run(() => clientHandler.ProcessRequests());
 
-            Server.clientHandlers.AddRange(new ClientHandler[]{ clientHandler, clientHandler2 });
+                var clientHandler2 = new ClientHandler(player2.Socket);
+                Task.Run(() => clientHandler2.ProcessRequests());
+
+                Server.clientHandlers.AddRange(new ClientHandler[] { clientHandler, clientHandler2 });
 
             }
-            catch(Exception e)
+            catch (PlayerLeftException ex)
+            {
+                stream1.Close();
+                stream1.Socket.Close();
+            }
+            catch (Exception e)
             {
                 stream1.Close();
                 stream2.Close();
@@ -303,6 +309,14 @@ namespace ServerProj.Handlers
             while(!end)
             {
                     var request = (Request)formatter.Deserialize(stream1);
+                    if (request.Operation == OperationRequest.PlayerLeftGame)
+                    {
+                    OpponentLeftGame();
+                    var clientHandler = new ClientHandler(stream2.Socket);
+                    Task.Run(() => clientHandler.ProcessRequests());
+                    Server.clientHandlers.Add(clientHandler);
+                    throw new PlayerLeftException();
+                    }
                     end = diceService.ProcessPlayerTurn(request, playerOneTurn);
                     var sr = diceService.GetScores();
                     SendResponseToAll(new Response(sr, true, OperationResponse.ChangeScores));
@@ -311,6 +325,11 @@ namespace ServerProj.Handlers
             }
 
             return isFinished;
+        }
+
+        private void OpponentLeftGame()
+        {
+            SendSingleResponse(stream2, new Response("dice", true, OperationResponse.OpponentLeftGame));
         }
 
         private bool CheckWinner()

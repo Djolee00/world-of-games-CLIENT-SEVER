@@ -64,6 +64,7 @@ namespace ServerProj
                     case OperationRequest.BreakThread: Server.clientHandlers.Remove(this); break;
                     case OperationRequest.GameRejected: SendRejectGameNotification(request.Body); break;
                     case OperationRequest.GameAccepted: GameAccepted(request.Body); break;
+                    case OperationRequest.UserDiscconected: RemoveAndRefresh(); break;
                 }
 
 
@@ -172,6 +173,12 @@ namespace ServerProj
         }
         #endregion
 
+        private void RemoveAndRefresh()
+        {
+            service.RemoveGameForPlay();
+            Server.clientHandlers.Remove(this);
+            RefreshLobby();
+        }
 
         #region Stopping Thread
 
