@@ -98,9 +98,15 @@ namespace ServerProj.Handlers
             }
             catch(PlayerLeftExceptionTrivia ex)
             {
-               
+                var str = ex.str == stream1 ? stream2 : stream1;
+
                 ex.str.Close();
                 ex.str.Socket.Close();
+
+
+                var clientHandler = new ClientHandler(str.Socket);
+                Server.clientHandlers.Add(clientHandler);
+                Task.Run(() => clientHandler.ProcessRequests());
             }
             catch (Exception e)
             {
@@ -297,10 +303,8 @@ namespace ServerProj.Handlers
             if(request.Operation == OperationRequest.PlayerLeftGame)
             {
                 OpponentLeftGame(stream2, "trivia");
-                //SendSingleResponse(stream2, new Response("",true,OperationResponse.DummyResponse));
-                var clientHandler = new ClientHandler(stream2.Socket);
-                Server.clientHandlers.Add(clientHandler);
-                Task.Run(() => clientHandler.ProcessRequests());
+                SendSingleResponse(stream2, new Response("",true,OperationResponse.DummyResponse));
+                
                 throw new PlayerLeftExceptionTrivia(stream);
             }
 

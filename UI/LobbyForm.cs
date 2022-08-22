@@ -66,11 +66,18 @@ namespace UI
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string id = "";
+
             dataGridView1.Invoke(delegate
             {
-               id  = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                if (e.RowIndex >= 0)
+                {
+                    if (dataGridView1.CurrentCell != null && dataGridView1.CurrentCell.Value != null)
+                    {
+                        id = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                        User.User.Instance.SendRequest(OperationRequest.CreateGameRequest, id);
+                    }
+                }
             });
-            User.User.Instance.SendRequest(OperationRequest.CreateGameRequest, id);
         }
 
         public void RefreshDataGrid(string games)

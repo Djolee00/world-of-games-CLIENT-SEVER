@@ -69,7 +69,7 @@ namespace UI.Games
 
         public void DisableForm(string message)
         {
-            button1.Enabled = button2.Enabled = false;
+            button1.Enabled = button2.Enabled = btnCancel.Enabled = false;
 
             if(message == "prvi" )
                 ChangeColorOnTurnForActivePlayer();
@@ -79,7 +79,7 @@ namespace UI.Games
 
         public void EnableForm(string message)
         {
-            button1.Enabled = button2.Enabled = true;
+            button1.Enabled = button2.Enabled = btnCancel.Enabled = true;
 
             if (message == "prvi")
                 ChangeColorOnTurnForActivePlayer();
