@@ -1,4 +1,7 @@
 ﻿using Domain.Model;
+using Domain.Model.Trivia;
+using Microsoft.EntityFrameworkCore;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +19,9 @@ namespace ServerProj
         public static List<Player> onlineUsers = new List<Player>();
         public static List<LobbyGame> availableGames = new List<LobbyGame>();
         public static List<ClientHandler> clientHandlers = new List<ClientHandler>();
-     
+        public static Question[] questions = new Question[10];
+        private RepositoryDbContext context = new RepositoryDbContext();
+
 
         public static int id = 1;
 
@@ -45,6 +50,9 @@ namespace ServerProj
                 socketListener.Listen(10);
 
                 Task.Run(() => ListenForConnections());
+
+                questions = context.Questions.Include(x => x.answer).ToArray();
+
                 //new Thread(ListenForConnections).Start();
                 return true;
             }

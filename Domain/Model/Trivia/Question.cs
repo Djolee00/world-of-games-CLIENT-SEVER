@@ -12,6 +12,11 @@ namespace Domain.Model.Trivia
         public string Text { get; set; }
         public Answer answer { get; set; }
 
+        public Question()
+        {
+                
+        }
+
         public Question(int id, string text, Answer answer)
         {
             Id = id;

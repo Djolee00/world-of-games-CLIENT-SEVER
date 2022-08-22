@@ -148,6 +148,8 @@ namespace UI.Games
                 pnlWaiting.Visible = true;
                 labelWiiner.Visible = btnOk.Visible = true;
 
+                lblText.Visible = false;
+
                 btnOk.Enabled = true;
 
                 labelWiiner.Text = "Opponent left the game.\nCongratulations you are the winner!";

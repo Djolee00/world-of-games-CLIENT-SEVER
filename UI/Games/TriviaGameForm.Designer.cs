@@ -73,7 +73,6 @@
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.Size = new System.Drawing.Size(558, 162);
             this.labelQuestion.TabIndex = 0;
-            this.labelQuestion.Text = "Trivia question";
             this.labelQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnA
@@ -88,7 +87,7 @@
             this.btnA.ForeColor = System.Drawing.Color.White;
             this.btnA.Location = new System.Drawing.Point(110, 325);
             this.btnA.Name = "btnA";
-            this.btnA.Size = new System.Drawing.Size(240, 68);
+            this.btnA.Size = new System.Drawing.Size(255, 68);
             this.btnA.TabIndex = 9;
             this.btnA.UseVisualStyleBackColor = false;
             this.btnA.Click += new System.EventHandler(this.btnA_Click);
@@ -103,9 +102,9 @@
             this.btnB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnB.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnB.ForeColor = System.Drawing.Color.White;
-            this.btnB.Location = new System.Drawing.Point(492, 325);
+            this.btnB.Location = new System.Drawing.Point(477, 325);
             this.btnB.Name = "btnB";
-            this.btnB.Size = new System.Drawing.Size(240, 68);
+            this.btnB.Size = new System.Drawing.Size(255, 68);
             this.btnB.TabIndex = 10;
             this.btnB.UseVisualStyleBackColor = false;
             this.btnB.Click += new System.EventHandler(this.btnB_Click);
@@ -122,7 +121,7 @@
             this.btnC.ForeColor = System.Drawing.Color.White;
             this.btnC.Location = new System.Drawing.Point(110, 414);
             this.btnC.Name = "btnC";
-            this.btnC.Size = new System.Drawing.Size(240, 68);
+            this.btnC.Size = new System.Drawing.Size(255, 68);
             this.btnC.TabIndex = 11;
             this.btnC.UseVisualStyleBackColor = false;
             this.btnC.Click += new System.EventHandler(this.btnC_Click);
@@ -137,9 +136,9 @@
             this.btnD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnD.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnD.ForeColor = System.Drawing.Color.White;
-            this.btnD.Location = new System.Drawing.Point(492, 414);
+            this.btnD.Location = new System.Drawing.Point(477, 414);
             this.btnD.Name = "btnD";
-            this.btnD.Size = new System.Drawing.Size(240, 68);
+            this.btnD.Size = new System.Drawing.Size(255, 68);
             this.btnD.TabIndex = 12;
             this.btnD.UseVisualStyleBackColor = false;
             this.btnD.Click += new System.EventHandler(this.btnD_Click);
@@ -197,9 +196,9 @@
             // labelWiiner
             // 
             this.labelWiiner.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelWiiner.Location = new System.Drawing.Point(62, 22);
+            this.labelWiiner.Location = new System.Drawing.Point(16, 22);
             this.labelWiiner.Name = "labelWiiner";
-            this.labelWiiner.Size = new System.Drawing.Size(350, 86);
+            this.labelWiiner.Size = new System.Drawing.Size(416, 86);
             this.labelWiiner.TabIndex = 1;
             this.labelWiiner.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 

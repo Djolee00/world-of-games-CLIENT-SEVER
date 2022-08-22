@@ -1,4 +1,6 @@
 ﻿using Domain.Model.Trivia;
+using Microsoft.EntityFrameworkCore;
+using Repository;
 using ServerProj.Handlers;
 using System;
 using System.Collections.Generic;
@@ -16,30 +18,25 @@ namespace ServerProj.Services
         int questionNumber = 0;
         Question question = null;
 
-        
 
         public TriviaService()
         {
-            questions = new Question[10];
-            questions = MockQuestions.questions;
-            // database
+            questions = Server.questions;
+            Random rnd = new Random();
+            ShuffleQuestions(rnd, questions);
         }
+        
 
-        private void ReadFromDatabase()
+
+        private void ShuffleQuestions(Random rng, Question[] q)
         {
-            var connection = ConfigurationManager.ConnectionStrings["rmtDatabaseConnection"].ConnectionString;
-
-            using (SqlConnection con = new SqlConnection(connection))
+            int n = q.Length;
+            while (n > 1)
             {
-                using(SqlCommand cmd = new SqlCommand("",con))
-                {
-                    cmd.CommandText = "SELECT * FROM Question";
-
-                    using(SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        
-                    }
-                }
+                int k = rng.Next(n--);
+                var temp = q[n];
+                q[n] = q[k];
+                q[k] = temp;
             }
         }
 
