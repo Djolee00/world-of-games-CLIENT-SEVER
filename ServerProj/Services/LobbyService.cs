@@ -117,6 +117,12 @@ namespace ServerProj
         }
         #endregion
 
+        public void ResetPlayerScore()
+        {
+            localPlayer = localPlayer ?? SetALocalPlayer();
+            localPlayer.Score = 0;
+        }
+
         public (NetworkStream,string) FindStreamById(string id)
         {
             var player = FindAPlayerById(id);

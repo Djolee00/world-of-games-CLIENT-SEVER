@@ -90,6 +90,8 @@ namespace ServerProj.Handlers
 
                 Server.clientHandlers.AddRange(new ClientHandler[] { clientHandler, clientHandler2 });
 
+                player1.Score = player2.Score = 0;
+            
             }
             catch (PlayerLeftException ex)
             {
@@ -176,7 +178,7 @@ namespace ServerProj.Handlers
                     var result = Task.WaitAny(playerOneClick, playerTwoClick,timer);
                     var result2 = 2;
 
-                    if (questionNumber++ == 3) isEnd = true;
+                    if (questionNumber++ == 10) isEnd = true;
 
                     if (result == 2) continue;
 

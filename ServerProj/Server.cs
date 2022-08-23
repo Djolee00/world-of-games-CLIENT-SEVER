@@ -51,7 +51,10 @@ namespace ServerProj
 
                 Task.Run(() => ListenForConnections());
 
-                questions = context.Questions.Include(x => x.answer).ToArray();
+                Task.Run(() =>
+                {
+                    questions = context.Questions.Include(x => x.answer).ToArray();
+                });
 
                 //new Thread(ListenForConnections).Start();
                 return true;

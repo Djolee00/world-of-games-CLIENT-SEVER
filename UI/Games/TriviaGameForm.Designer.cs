@@ -48,6 +48,7 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.labelQuestion);
             this.panel1.Location = new System.Drawing.Point(110, 27);
@@ -145,14 +146,15 @@
             // 
             // pnlWaiting
             // 
+            this.pnlWaiting.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlWaiting.BackColor = System.Drawing.Color.White;
             this.pnlWaiting.Controls.Add(this.btnOk);
             this.pnlWaiting.Controls.Add(this.lblText);
             this.pnlWaiting.Controls.Add(this.labelInfo);
             this.pnlWaiting.Controls.Add(this.labelWiiner);
-            this.pnlWaiting.Location = new System.Drawing.Point(212, 125);
+            this.pnlWaiting.Location = new System.Drawing.Point(132, 125);
             this.pnlWaiting.Name = "pnlWaiting";
-            this.pnlWaiting.Size = new System.Drawing.Size(447, 241);
+            this.pnlWaiting.Size = new System.Drawing.Size(582, 241);
             this.pnlWaiting.TabIndex = 1;
             // 
             // btnOk
@@ -166,7 +168,7 @@
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOk.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnOk.ForeColor = System.Drawing.Color.Black;
-            this.btnOk.Location = new System.Drawing.Point(186, 189);
+            this.btnOk.Location = new System.Drawing.Point(254, 189);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(67, 49);
             this.btnOk.TabIndex = 13;
@@ -176,10 +178,11 @@
             // 
             // lblText
             // 
+            this.lblText.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblText.AutoSize = true;
             this.lblText.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblText.ForeColor = System.Drawing.Color.Black;
-            this.lblText.Location = new System.Drawing.Point(62, 94);
+            this.lblText.Location = new System.Drawing.Point(130, 94);
             this.lblText.Name = "lblText";
             this.lblText.Size = new System.Drawing.Size(350, 41);
             this.lblText.TabIndex = 0;
@@ -187,18 +190,20 @@
             // 
             // labelInfo
             // 
+            this.labelInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelInfo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelInfo.Location = new System.Drawing.Point(62, 86);
+            this.labelInfo.Location = new System.Drawing.Point(59, 86);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(323, 100);
+            this.labelInfo.Size = new System.Drawing.Size(469, 100);
             this.labelInfo.TabIndex = 2;
             // 
             // labelWiiner
             // 
+            this.labelWiiner.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelWiiner.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelWiiner.Location = new System.Drawing.Point(16, 22);
+            this.labelWiiner.Location = new System.Drawing.Point(10, 22);
             this.labelWiiner.Name = "labelWiiner";
-            this.labelWiiner.Size = new System.Drawing.Size(416, 86);
+            this.labelWiiner.Size = new System.Drawing.Size(558, 86);
             this.labelWiiner.TabIndex = 1;
             this.labelWiiner.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 

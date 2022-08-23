@@ -54,7 +54,7 @@ namespace UI.Games
 
         private void RefreshScene()
         {
-            btnA.Enabled = btnB.Enabled = btnC.Enabled = btnD.Enabled =  true;
+            btnA.Enabled = btnB.Enabled = btnC.Enabled = btnD.Enabled = btnCancel.Enabled =  true;
             btnA.BackColor = btnB.BackColor = btnC.BackColor = btnD.BackColor = Color.Transparent;
         }
 
@@ -63,6 +63,9 @@ namespace UI.Games
             var splitResponse = ShowPlayersPoints(response);
 
             ChangeButtonsColor(Color.Green, splitResponse[4]);
+
+
+            btnA.Enabled = btnB.Enabled = btnC.Enabled = btnD.Enabled = false;
         }
 
         public void FalseAnswer(string response)
@@ -70,6 +73,8 @@ namespace UI.Games
             var splitResponse =  ShowPlayersPoints(response);
 
             ChangeButtonsColor(Color.Red, splitResponse[4]);
+
+
         }
 
         private string[] ShowPlayersPoints(string players)

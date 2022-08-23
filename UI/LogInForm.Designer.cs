@@ -51,6 +51,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBox1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBox1.ForeColor = System.Drawing.Color.Black;
             this.textBox1.Location = new System.Drawing.Point(117, 282);

@@ -65,7 +65,8 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
@@ -105,7 +106,7 @@
             this.dataGridView1.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.DarkGray;
             this.dataGridView1.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(986, 285);
+            this.dataGridView1.Size = new System.Drawing.Size(972, 285);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -151,7 +152,7 @@
             // 
             // btnPlay
             // 
-            this.btnPlay.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnPlay.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnPlay.BackColor = System.Drawing.Color.Transparent;
             this.btnPlay.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnPlay.FlatAppearance.BorderSize = 2;
@@ -159,7 +160,7 @@
             this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPlay.ForeColor = System.Drawing.Color.White;
-            this.btnPlay.Location = new System.Drawing.Point(134, 464);
+            this.btnPlay.Location = new System.Drawing.Point(236, 464);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(536, 49);
             this.btnPlay.TabIndex = 8;
@@ -262,7 +263,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(734, 13);
+            this.btnCancel.Location = new System.Drawing.Point(939, 13);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(45, 45);
@@ -276,7 +277,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(792, 547);
+            this.ClientSize = new System.Drawing.Size(997, 547);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.panel1);
